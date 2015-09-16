@@ -1,5 +1,5 @@
 #!/bin/bash
 
 for i in $(seq $1); do
-    /bin/true;
+    /usr/bin/env true;
 done
