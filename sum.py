@@ -1,3 +1,5 @@
+#!/usr/bin/env python
+
 def f(n):
     s = 0
     for i in xrange(n):

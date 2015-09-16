@@ -1,3 +1,5 @@
+#!/usr/bin/env python
+
 def f(n):
     for _ in xrange(n):
         pass
