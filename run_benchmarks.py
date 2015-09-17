@@ -1,6 +1,7 @@
 #!/usr/bin/env python
 
 import glob
+import json
 import math
 import subprocess
 import sys
@@ -50,8 +51,15 @@ def run_benchmarks(benchmarks):
     for source, binary in benchmarks:
         print "----> " + source 
         results = benchmark(binary)
-        results['source'] = source
+        results = add_source(results, source)
         yield results
+
+def add_source(results, source_file):
+    with open(source_file) as f:
+        code = f.read()
+    results['source'] = source_file
+    results['code'] = code
+    return results
 
 
 def find_all_benchmarks():
@@ -61,9 +69,12 @@ def find_all_benchmarks():
 
 
 if __name__ == '__main__':
+    output_file = 'benchmarks.json'
     if len(sys.argv) > 1:
         benchmark(sys.argv[1])
         sys.exit(0)
     else:
         all_benchmarks = find_all_benchmarks()
-        print list(run_benchmarks(all_benchmarks))
+        benchmarks_json = json.dumps(list(run_benchmarks(all_benchmarks)))
+        with open(output_file, 'w') as f:
+            f.write(benchmarks_json)
