@@ -3,8 +3,8 @@
 import tempfile
 import os
 
-LENGTH = 1000000
-s = "a" * LENGTH
+CHUNK_SIZE = 1000000
+s = "a" * CHUNK_SIZE
 
 def cleanup(f, name):
     f.flush()
@@ -15,13 +15,13 @@ def cleanup(f, name):
     except:
         pass
 
-def f(n):
+def f(NUMBER):
     name = './out'
     f = open(name, 'w')
     bytes_written = 0
-    while bytes_written < n:
+    while bytes_written < NUMBER:
         f.write(s)
-        bytes_written += LENGTH
+        bytes_written += CHUNK_SIZE
     cleanup(f, name)
 
 import sys

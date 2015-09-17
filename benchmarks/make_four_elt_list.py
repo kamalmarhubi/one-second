@@ -2,8 +2,8 @@
 
 import json
 
-def f(n):
-    for _ in xrange(n):
+def f(NUMBER):
+    for _ in xrange(NUMBER):
         [0,1,2,3]
 
 import sys

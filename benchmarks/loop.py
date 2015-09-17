@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 
-def f(n):
-    for _ in xrange(n):
+def f(NUMBER):
+    for _ in xrange(NUMBER):
         pass
 
 import sys

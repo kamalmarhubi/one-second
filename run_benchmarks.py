@@ -27,7 +27,7 @@ def benchmark(prog):
         iters = int(math.ceil(iters))
         t = timeit.timeit(
                 'run_prog("%s", %d)' % (prog, iters,),
-                setup='from num_iters import run_prog',
+                setup='from run_benchmarks import run_prog',
                 number=1)
 
     rounded_iters = round_nearest_magnitude(iters)

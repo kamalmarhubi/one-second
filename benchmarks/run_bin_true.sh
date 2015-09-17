@@ -1,5 +1,7 @@
 #!/bin/bash
 
-for i in $(seq $1); do
+NUMBER=$1
+
+for i in $(seq $NUMBER); do
     /usr/bin/env true;
 done

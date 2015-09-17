@@ -1,10 +1,10 @@
 #include <stdlib.h>
 
 int main(int argc, char **argv) {
-    int n, i, s;
-    n = atoi(argv[1]);
+    int NUMBER, i, s;
+    NUMBER = atoi(argv[1]);
 
-    for (s = i = 0; i < n; ++i) {
+    for (s = i = 0; i < NUMBER; ++i) {
         s += 1;
     }
 

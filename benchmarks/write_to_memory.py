@@ -2,15 +2,15 @@
 
 import cStringIO
 
-LENGTH = 1000000
-s = "a" * LENGTH
+CHUNK_SIZE = 1000000
+s = "a" * CHUNK_SIZE
 
-def f(n):
+def f(NUMBER):
     output = cStringIO.StringIO()
     bytes_written = 0
-    while bytes_written < n:
+    while bytes_written < NUMBER:
         output.write(s)
-        bytes_written += LENGTH
+        bytes_written += CHUNK_SIZE
 
 import sys
 f(int(sys.argv[1]))

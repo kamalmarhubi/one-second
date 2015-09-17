@@ -1,8 +1,8 @@
 #!/usr/bin/env python
 
-def f(n):
+def f(NUMBER):
     s = 0
-    for i in xrange(n):
+    for i in xrange(NUMBER):
         s += 1
 
 import sys
