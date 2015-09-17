@@ -40,7 +40,7 @@ def benchmark(prog):
 
 def compile(source):
     if source.endswith(".c"):
-        binary = source.replace(".c", "") 
+        binary = source.replace(".c", "")
         subprocess.check_call(["gcc", "-o", binary, source])
     else:
         binary = source
@@ -49,7 +49,7 @@ def compile(source):
 
 def run_benchmarks(benchmarks):
     for source, binary in benchmarks:
-        print "----> " + source 
+        print "----> " + source
         results = benchmark(binary)
         results = add_source(results, source)
         yield results
@@ -57,7 +57,7 @@ def run_benchmarks(benchmarks):
 def add_source(results, source_file):
     with open(source_file) as f:
         code = f.read()
-    results['source'] = source_file
+    results['source'] = source_file[11:]
     results['code'] = code
     return results
 
