@@ -1,5 +1,11 @@
 import $ from 'jquery'
 
+var curriculum = [
+    ["sum.c", "loop.py"],
+    ["make_one_elt_list.py", "run_python.sh"],
+    ["write_to_disk.py", "write_to_memory.py"]
+]
+
 var english = function(iters) {
     var bil = Math.pow(10, 9)
     var mil = Math.pow(10, 6)
@@ -14,22 +20,30 @@ var english = function(iters) {
         return iters
     }
 }
-var display = function(benchmarks) {
-    console.log("hi")
-    var i;
-    for (i = 0; i < benchmarks.length; i++) {
-        var benchmark = benchmarks[i]
-        var code = benchmark["code"]
-        var source = benchmark["source"]
-        var iters = benchmark["rounded_iters"]
-        var exact_iters = benchmark["exact_iters"]
-        iters = english(iters)
 
-        var thing = "<div class = 'col-md-6'>" + "<h3>" + source + "</h3>" + "iters: " + iters +  ", exact iters:" + english(exact_iters) + "<pre>" + code + "</pre>" + "</div>"
-        $("#code").append(thing)
+var disp = function(name, benchmark_results) {
+    var code = benchmark_results["code"]
+    var iters = benchmark_results["rounded_iters"]
+    var exact_iters = benchmark_results["exact_iters"]
+    iters = english(iters)
+
+    return "<div class = 'col-md-6'>" + "<h3>" + name + "</h3>" + "iters: " + iters +  ", exact iters:" + english(exact_iters) + "<pre>" + code + "</pre>" + "</div>"
+}
+var display = function(benchmarks) {
+    var i;
+    for (i = 0; i < curriculum.length; i++) {
+        var section = curriculum[i]
+        var j;
+        $("#code").append("<div class='row'>")
+        for (j = 0; j < section.length; j++) {
+            name = section[j]
+            var benchmark_results = benchmarks[name]
+            $("#code").append(disp(name, benchmark_results))
+        }
+        $("#code").append("</div>")
+        $("#code").append("<hr>")
     }
 }
-
 $.getJSON("/benchmarks.json", function(result) {
     var json = result
     console.log(result); // this will show the info it in firebug console
