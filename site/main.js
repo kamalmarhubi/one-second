@@ -1,9 +1,19 @@
 import $ from 'jquery'
 
 var curriculum = [
-    ["sum.c", "loop.py"],
-    ["make_one_elt_list.py", "run_python.sh"],
-    ["write_to_disk.py", "write_to_memory.py"]
+    {
+        'text': 'Welcome to the first program! This one is just to get you on your feet: how many loops can you go through in a second? (it might be more than you think!)',
+        'programs': ["sum.c", "loop.py"],
+    },
+    {
+        'programs': ["download_webpage.py"],
+    },
+    {
+        'programs': ["make_one_elt_list.py", "run_python.sh"],
+    },
+    {
+        'programs': ["write_to_disk.py", "write_to_memory.py"]
+    }
 ]
 
 var english = function(iters) {
@@ -21,7 +31,8 @@ var english = function(iters) {
     }
 }
 
-var disp = function(name, benchmark_results) {
+var disp = function(benchmarks, name) {
+    var benchmark_results = benchmarks[name]
     var code = benchmark_results["code"]
     var iters = benchmark_results["rounded_iters"]
     var exact_iters = benchmark_results["exact_iters"]
@@ -32,13 +43,13 @@ var disp = function(name, benchmark_results) {
 var display = function(benchmarks) {
     var i;
     for (i = 0; i < curriculum.length; i++) {
-        var section = curriculum[i]
+        var programs = curriculum[i]['programs']
         var j;
         $("#code").append("<div class='row'>")
-        for (j = 0; j < section.length; j++) {
-            name = section[j]
-            var benchmark_results = benchmarks[name]
-            $("#code").append(disp(name, benchmark_results))
+        $("#code").append("<p>" + curriculum[i]['text'] + "</p>")
+        for (j = 0; j < programs.length; j++) {
+            name = programs[j]
+            $("#code").append(disp(benchmarks, name))
         }
         $("#code").append("</div>")
         $("#code").append("<hr>")
