@@ -2,3 +2,4 @@ sum
 *.pyc
 node_modules
 site/jspm_packages
+vendor/
