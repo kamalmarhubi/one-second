@@ -1,0 +1,21 @@
+{
+  "scripts": {
+    "postinstall": "node_modules/jspm/jspm.js install"
+  },
+  "jspm": {
+    "directories": {
+      "baseURL": "site"
+    },
+    "dependencies": {
+      "jquery": "github:components/jquery@^2.1.4"
+    },
+    "devDependencies": {
+      "babel": "npm:babel-core@^5.8.22",
+      "babel-runtime": "npm:babel-runtime@^5.8.20",
+      "core-js": "npm:core-js@^1.1.0"
+    }
+  },
+  "devDependencies": {
+    "jspm": "^0.16.2"
+  }
+}
