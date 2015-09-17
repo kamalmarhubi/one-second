@@ -18,6 +18,7 @@ def run_prog(prog, iters):
      
 
 def benchmark(prog):
+    source, binary = compile(prog)
     t = 0
     iters = 1
     num_runs = 0
@@ -26,7 +27,7 @@ def benchmark(prog):
         iters *= 1.1
         iters = int(math.ceil(iters))
         t = timeit.timeit(
-                'run_prog("%s", %d)' % (prog, iters,),
+                'run_prog("%s", %d)' % (binary, iters,),
                 setup='from run_benchmarks import run_prog',
                 number=1)
 
@@ -50,9 +51,9 @@ def compile(source):
 
 
 def run_benchmarks(benchmarks):
-    for source, binary in benchmarks:
+    for source in benchmarks:
         print "----> " + source
-        results = benchmark(binary)
+        results = benchmark(source)
         yield add_source(results, source)
 
 def add_source(results, source_file):
@@ -64,9 +65,7 @@ def add_source(results, source_file):
 
 
 def find_all_benchmarks():
-    progs = glob.glob("benchmarks/*.*")
-    for prog in progs:
-        yield compile(prog)
+    return glob.glob("benchmarks/*.*")
 
 
 if __name__ == '__main__':
