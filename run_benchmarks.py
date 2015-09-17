@@ -70,7 +70,7 @@ def find_all_benchmarks():
 
 
 if __name__ == '__main__':
-    output_file = 'benchmarks.json'
+    output_file = 'site/benchmarks.json'
     if len(sys.argv) > 1:
         benchmark(sys.argv[1])
         sys.exit(0)
