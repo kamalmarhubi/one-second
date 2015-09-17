@@ -23,7 +23,6 @@ def benchmark(prog):
     num_runs = 0
 
     while t < 1:
-        num_runs += 1
         iters *= 1.1
         iters = int(math.ceil(iters))
         t = timeit.timeit(
@@ -31,9 +30,12 @@ def benchmark(prog):
                 setup='from num_iters import run_prog',
                 number=1)
 
-    print num_runs, iters, t, round_nearest_magnitude(iters)
+    rounded_iters = round_nearest_magnitude(iters)
+    print "   rounded iterations:", rounded_iters
+    print "   exact iterations:  ", iters
+    print "   final time taken:  ", t
     return {
-        'rounded_iters': round_nearest_magnitude(iters),
+        'rounded_iters': rounded_iters,
         'exact_iters': iters,
     }
 
@@ -51,15 +53,14 @@ def run_benchmarks(benchmarks):
     for source, binary in benchmarks:
         print "----> " + source
         results = benchmark(binary)
-        results = add_source(results, source)
-        yield results
+        yield add_source(results, source)
 
 def add_source(results, source_file):
     with open(source_file) as f:
         code = f.read()
-    results['source'] = source_file[11:]
+    source_filename = source_file[11:] # remove 'benchmarks/'
     results['code'] = code
-    return results
+    return source_filename, results
 
 
 def find_all_benchmarks():
@@ -75,6 +76,9 @@ if __name__ == '__main__':
         sys.exit(0)
     else:
         all_benchmarks = find_all_benchmarks()
-        benchmarks_json = json.dumps(list(run_benchmarks(all_benchmarks)))
+        results = {}
+        for source_filename, result in run_benchmarks(all_benchmarks):
+            results[source_filename] = result
+        benchmarks_json = json.dumps(results)
         with open(output_file, 'w') as f:
             f.write(benchmarks_json)
