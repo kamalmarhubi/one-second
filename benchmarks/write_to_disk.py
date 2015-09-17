@@ -3,22 +3,27 @@
 import tempfile
 import os
 
-s = "a" * 1000000
+LENGTH = 1000000
+s = "a" * LENGTH
 
-def cleanup(temp):
-    temp.flush()
-    os.fsync(temp.fileno())
-    temp.close()
+def cleanup(f, name):
+    f.flush()
+    os.fsync(f.fileno())
+    f.close()
     try:
-        os.remove(temp.name)
+        pass
+        #os.remove(name)
     except:
         pass
 
 def f(n):
-    temp = tempfile.NamedTemporaryFile()
-    for i in xrange(n):
-        temp.write(s)
-    cleanup(temp)
+    name = './out'
+    f = open(name, 'w')
+    bytes_written = 0
+    while bytes_written < n:
+        f.write(s)
+        bytes_written += LENGTH
+    cleanup(f, name)
 
 import sys
 f(int(sys.argv[1]))

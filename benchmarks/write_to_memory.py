@@ -1,11 +1,16 @@
 #!/usr/bin/env python
 
-import numpy
+import cStringIO
 
+LENGTH = 1000000
+s = "a" * LENGTH
 
 def f(n):
-    arr = numpy.zeros(n)
-    arr.fill(23)
+    output = cStringIO.StringIO()
+    bytes_written = 0
+    while bytes_written < n:
+        output.write(s)
+        bytes_written += LENGTH
 
 import sys
 f(int(sys.argv[1]))
