@@ -8,8 +8,8 @@ const curriculum = [
         'programs': ["download_webpage.py", "run_python.sh"],
     },
     {
-        'text': ["Hashing! Serialization! Here you'll learn how many bytes you can hash in a second."],
-        'programs': ["hash.py", "hash.py"]
+        'text': ["Hashing! Request parsing! How many HTTP requests can we parse in Python in a second?"],
+        'programs': ["hash.py", "parse_http_request.py"]
     },
     {
         'text': ["Next up, let's talk about memory access. Are memory accesses expensive? (yes they are!). Let's see how accessing memory in-order vs out-of-order affects performance."],
