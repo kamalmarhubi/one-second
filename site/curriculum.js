@@ -8,6 +8,14 @@ const curriculum = [
         'programs': ["download_webpage.py", "run_python.sh"],
     },
     {
+        'text': ["Hashing! Serialization! Here you'll learn how many bytes you can hash in a second."],
+        'programs': ["hash.py", "hash.py"]
+    },
+    {
+        'text': ["Next up, let's talk about memory access. Are memory accesses expensive? (yes they are!). Let's see how accessing memory in-order vs out-of-order affects performance."],
+        'programs': ["fill_array.c", "fill_array_out_of_order.c"]
+    },
+    {
         'text': ["How many bytes can you write to disk in a second? We all know writing to memory is faster, but how *much* faster? This code was run on a computer with an SSD."],
         'programs': ["write_to_disk.py", "write_to_memory.py"]
     }
