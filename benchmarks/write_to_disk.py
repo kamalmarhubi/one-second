@@ -11,8 +11,7 @@ def cleanup(f, name):
     os.fsync(f.fileno())
     f.close()
     try:
-        pass
-        #os.remove(name)
+        os.remove(name)
     except:
         pass
 
