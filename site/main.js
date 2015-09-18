@@ -1,5 +1,88 @@
 import $ from 'jquery'
 import curriculum from 'curriculum'
+import React from 'react'
+
+class QuizQuestion extends React.Component {
+    render() {
+        let { code, name, selectedAnswer, answer, exactAnswer } = this.props;
+        //  buttons + answer
+        //  
+        return <div className='col-md-5'>
+            <h3>{name}</h3>
+            <AnswerSelector name={name} value={selectedAnswer} />
+            <pre>{code}</pre>
+            { selectedAnswer !== undefined ?
+                <div className='answer'>
+                    <b> Answer: </b>{english(answer)}  (exact amount: {english(exactAnswer)})
+                </div>
+            : undefined }
+        </div>;
+    }
+}
+
+class AnswerSelector extends React.Component {
+    render() {
+        let { name, onChange, value } = this.props;
+        const options = [1, 10, 100, 1000, 10000];
+        return <ul>{ options.map(val => <AnswerChoice
+                key={val}
+                checked={val === value}
+                name={name}
+                value={val}
+                onChange={() => onChange(val)} />)
+        }</ul>;
+    }
+}
+
+class AnswerChoice extends React.Component {
+    render() {
+        let { value, name, onChange, checked } = this.props;
+        let id = `${name}-${value}`;
+        return <li>
+            <label htmlFor={id}>{value}</label>
+            <input type='radio' name={name} id={id} value={value}
+                onChange={onChange} checked={checked} />
+        </li>;
+    }
+}
+
+class Section extends React.Component {
+    render() {
+        let { text, programs } = this.props;
+        return <div className='row'>
+            <div className='col-md-6 col-md-offset-2 jumbotron'>{text}</div>
+            {programs.map(prog => <QuizQuestion key={prog.name} {...prog} />)}
+        </div>;
+    }
+}
+
+class Quiz extends React.Component {
+    render() {
+        let { curriculum, benchmarks } = this.props;
+        return <div>
+            { curriculum.map(({text, programs}, index) =>
+                <Section key={index} text={text} programs={
+                  programs.map(prog => Object.assign({name: prog}, benchmarks[prog]))} />) }
+        </div>;
+    }
+}
+
+const initialState = {
+}
+
+function question(state, action) {
+    switch (action.type) {
+        case SET_ANSWER:
+        default:
+          return state;
+    }
+}
+
+function quiz(state = initialState, action) {
+  // For now, don’t handle any actions
+  // and just return the state given to us.
+  return state;
+}
 
 
 var english = function(iters) {
@@ -55,4 +138,6 @@ $.getJSON("/benchmarks.json", function(result) {
         $(this).addClass('active');
         $(this).parent().parent().parent().find('.answer').show();
     })
+    React.render(<Quiz curriculum={curriculum} benchmarks={result}/>, document.getElementById('quiz'));
 });
+
