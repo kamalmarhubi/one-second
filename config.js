@@ -1,5 +1,5 @@
 System.config({
-  baseURL: "/",
+  baseURL: "/one-second/",
   defaultJSExtensions: true,
   transpiler: "babel",
   babelOptions: {
