@@ -3,9 +3,13 @@
 import glob
 import json
 import math
+import signal
 import subprocess
 import sys
 import timeit
+
+# Python ignores SIGPIPE by default. This is Very Bad for subprocesses that use pipes
+signal.signal(signal.SIGPIPE, signal.SIG_DFL)
 
 
 def round_nearest_magnitude(x):
