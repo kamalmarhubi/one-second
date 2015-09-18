@@ -39,7 +39,7 @@ var display = function(benchmarks) {
         var j;
         $("#code").append("<div class='row'>")
 
-        $("#code").append("<p class='col-md-6 col-md-offset-2 jumbotron'>" + curriculum[i]['text'] + "</p>")
+        $("#code").append("<div class='col-md-6 col-md-offset-2 jumbotron'>" + curriculum[i]['text'] + "</div>")
         for (j = 0; j < programs.length; j++) {
             name = programs[j]
             $("#code").append(disp(benchmarks, name))
