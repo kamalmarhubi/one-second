@@ -1,6 +1,6 @@
 #!/bin/bash 
 
-# How many files can grep search, unsuccessfully, in a second?
+# Number to guess: How many files can grep search, unsuccessfully, in a second?
 
 NUMBER=$1
 
