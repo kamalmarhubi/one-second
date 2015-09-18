@@ -11,9 +11,9 @@ int main(int argc, char **argv) {
     char* array = malloc(NUMBER);
     int j = 1;
     for (i = 0; i < NUMBER; ++i) {
-        j = j * 1331 % NUMBER;
-        if (j < 0) {
-            j = j + NUMBER;
+        j = j * 2;
+        if (j > NUMBER) {
+            j = j - NUMBER;
         }
         array[j] = 5;
     }
