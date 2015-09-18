@@ -7,4 +7,5 @@
 
 NUMBER=$1
 
-cat /dev/zero | head -c $NUMBER | grep blah | head
+cat /dev/zero | head -c $NUMBER | grep blah
+exit 0
