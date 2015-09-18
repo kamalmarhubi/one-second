@@ -1,6 +1,7 @@
 #!/bin/bash 
 
-# Number to guess: How many files can grep search, unsuccessfully, in a second?
+# Number to guess: How many files can `grep`
+# search, unsuccessfully, in a second?
 # Note: the file contents will be in the filesystem cache.
 
 NUMBER=$1

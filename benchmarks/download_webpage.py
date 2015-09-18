@@ -1,5 +1,8 @@
 #!/usr/bin/env python
 
+# Number to guess: How many times can we
+# download google.com in a second?
+
 from urllib2 import urlopen
 
 

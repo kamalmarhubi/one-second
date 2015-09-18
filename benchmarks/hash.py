@@ -1,5 +1,7 @@
 #!/usr/bin/env python
 
+# Number to guess: How many bytes can we md5sum in a second?
+
 import hashlib
 
 CHUNK_SIZE = 10000

@@ -1,5 +1,9 @@
 #!/usr/bin/env python
 
+# Number to guess: How many bytes can we write
+# to an output file in a second?
+# Note: we make sure everything is sync'd to disk
+# before exiting :)
 import tempfile
 import os
 

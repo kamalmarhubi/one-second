@@ -1,5 +1,8 @@
 #!/usr/bin/env python
 
+# Number to guess: How many bytes can we write
+# to a string in memory in a second?
+
 import cStringIO
 
 CHUNK_SIZE = 1000000

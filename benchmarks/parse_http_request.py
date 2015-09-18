@@ -1,5 +1,8 @@
 #!/usr/bin/env python
 
+# Number to guess: How many HTTP requests
+# can we parse in a second?
+
 from BaseHTTPServer import BaseHTTPRequestHandler
 from StringIO import StringIO
 
