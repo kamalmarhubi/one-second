@@ -7,11 +7,11 @@ var english = function(iters) {
     var mil = Math.pow(10, 6)
     var thousand = 1000
     if (iters >= bil) {
-        return Math.round(iters / bil) + " billion"
+        return Math.round(iters / bil) + ",000,000,000"
     } else if (iters >= mil) {
-        return Math.round(iters / mil) + " million"
+        return Math.round(iters / mil) + ",000,000"
     } else if (iters >= thousand) {
-        return Math.round(iters / thousand) + " thousand"
+        return Math.round(iters / thousand) + ",000"
     } else {
         return iters
     }
@@ -24,7 +24,7 @@ var disp = function(benchmarks, name) {
     var exact_iters = benchmark_results["exact_iters"]
     iters = english(iters)
 
-    var answer = "<div style='display:none' class='answer'> <b> Answer: </b> " + english(exact_iters)   + "</div>"
+    var answer = "<div style='display:none' class='answer'> <b> Answer: </b> " + english(iters) +  " (exact amount: " + english(exact_iters) + ") </div>"
     var buttons1 = '<div class="btn-toolbar" role="toolbar"> <div class="btn-group" role="group"> <button type="button" class="btn btn-default">1</button> <button type="button" class="btn btn-default">10</button> <button type="button" class="btn btn-default">100</button> <button type="button" class="btn btn-default">1,000</button> <button type="button" class="btn btn-default">10,000</button> <button type="button" class="btn btn-default">100,000</button><button type="button" class="btn btn-default">1,000,000</button> </div>'
     var buttons2 = '<div class="btn-group" role="group"> <button type="button" class="btn btn-default">10,000,000</button> <button type="button" class="btn btn-default">100,000,000</button> <button type="button" class="btn btn-default">1,000,000,000</button></div></div>'
     var buttons = buttons1 + buttons2
