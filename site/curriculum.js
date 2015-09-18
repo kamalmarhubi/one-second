@@ -8,6 +8,10 @@ const curriculum = [
         'programs': ["download_webpage.py", "run_python.sh"],
     },
     {
+        'text': ["File time! Sometimes I run a huge grep and it takes FOREVER. How many files do you think we can grep in a second? What if we just list the filenames instead?"],
+        'programs': ["find-filenames.sh", "grep_files_and_fail.sh"],
+    },
+    {
         'text': ["Hashing! Request parsing! How many HTTP requests can we parse in Python in a second?"],
         'programs': ["hash.py", "parse_http_request.py"]
     },
