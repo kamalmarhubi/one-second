@@ -38,11 +38,12 @@ const curriculum = [
     {
         'text': `
             <p>
-            Hashing! Request parsing! How many HTTP requests can we parse in
-            Python in a second?
+            Hashing time! Here we'll compare MD5 (which is designed to be
+            fast) to bcrypt (which is designed to be slow). You can hash quite
+            a bit of stuff in a second with MD5; not so with bcrypt.
             </p>
         `,
-        'programs': ["hash.py", "parse_http_request.py"]
+        'programs': ["hash.py", "bcrypt_hash.py"]
     },
     {
         'text': `
