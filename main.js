@@ -47,7 +47,7 @@ var display = function(benchmarks) {
         $("#code").append("</div>")
     }
 }
-$.getJSON("/benchmarks.json", function(result) {
+$.getJSON("benchmarks.json", function(result) {
     var json = result
     display(result)
     $('button').on('click', function() {
