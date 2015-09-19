@@ -38,6 +38,16 @@ const curriculum = [
     {
         'text': `
             <p>
+            DATABASES. We don't have anything fancy like PostgreSQL for you,
+            but we made 2 copies of a SQLite table with 10 million rows, one
+            indexed and one unindexed.
+            </p>
+        `,
+        'programs': ["database_indexed.py", "database_unindexed.py"],
+    },
+    {
+        'text': `
+            <p>
             Hashing time! Here we'll compare MD5 (which is designed to be
             fast) to bcrypt (which is designed to be slow). You can hash quite
             a bit of stuff in a second with MD5; not so with bcrypt.

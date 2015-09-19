@@ -6,12 +6,15 @@
 
 import sqlite3
 import os
-os.remove('./unindexed_db.sqlite')
+try:
+    os.remove('./unindexed_db.sqlite')
+except:
+    pass
 conn = sqlite3.connect('./unindexed_db.sqlite')
 c = conn.cursor()
 c.execute("create table my_table (key integer, s string)")
 
-elements = [(i, str(i)) for i in xrange(10**6)]
+elements = [(i, str(i)) for i in xrange(10**7)]
 c.executemany('INSERT INTO my_table VALUES (?,?)', elements)
 conn.commit()
 
