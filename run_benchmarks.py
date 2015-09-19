@@ -8,6 +8,8 @@ import subprocess
 import sys
 import timeit
 
+OUTPUT_FILE = 'site/benchmarks.json'
+
 # Python ignores SIGPIPE by default. This is Very Bad for subprocesses that use pipes
 signal.signal(signal.SIGPIPE, signal.SIG_DFL)
 
@@ -39,10 +41,14 @@ def benchmark(prog):
     print "   rounded iterations:", rounded_iters
     print "   exact iterations:  ", iters
     print "   final time taken:  ", t
-    return {
+    results = {
         'rounded_iters': rounded_iters,
         'exact_iters': iters,
     }
+    with open(source) as f:
+        results['code'] = f.read()
+    source_filename = source[11:] # remove benchmarks/
+    return {source_filename: results}
 
 
 def compile(source):
@@ -57,31 +63,31 @@ def compile(source):
 def run_benchmarks(benchmarks):
     for source in benchmarks:
         print "----> " + source
-        results = benchmark(source)
-        yield add_source(results, source)
-
-def add_source(results, source_file):
-    with open(source_file) as f:
-        code = f.read()
-    source_filename = source_file[11:] # remove 'benchmarks/'
-    results['code'] = code
-    return source_filename, results
-
+        yield benchmark(source)
 
 def find_all_benchmarks():
     return glob.glob("benchmarks/*.*")
 
+def write_json(results):
+    j = json.dumps(results, sort_keys=True,
+      indent=4, separators=(',', ': '))
+    with open(OUTPUT_FILE, 'w') as f:
+        f.write(j)
+
+def read_json():
+    with open(OUTPUT_FILE) as f:
+        return json.load(f)
 
 if __name__ == '__main__':
-    output_file = 'site/benchmarks.json'
     if len(sys.argv) > 1:
-        benchmark(sys.argv[1])
+        all_benchmarks = read_json()
+        result = benchmark(sys.argv[1])
+        all_benchmarks.update(result)
+        write_json(all_benchmarks)
         sys.exit(0)
     else:
         all_benchmarks = find_all_benchmarks()
         results = {}
-        for source_filename, result in run_benchmarks(all_benchmarks):
-            results[source_filename] = result
-        benchmarks_json = json.dumps(results)
-        with open(output_file, 'w') as f:
-            f.write(benchmarks_json)
+        for result in run_benchmarks(all_benchmarks):
+            results.update(result)
+        write_json(results)
