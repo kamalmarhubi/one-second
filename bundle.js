@@ -19406,7 +19406,7 @@ System.register('main.js', ['npm:babel-runtime@5.8.24/helpers/get', 'npm:babel-r
 
             store = createStore(questions);
 
-            $.getJSON("/benchmarks.json", function (result) {
+            $.getJSON("benchmarks.json", function (result) {
                 React.render(React.createElement(
                     Provider,
                     { store: store },
