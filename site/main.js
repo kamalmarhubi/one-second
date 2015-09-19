@@ -136,7 +136,10 @@ class Section extends React.Component {
     render() {
         let { onAnswerChange, text, programs } = this.props;
         return <div className='row'>
-            <div className='col-md-6 col-md-offset-2 jumbotron'>{text}</div>
+            <div className='col-md-10'>
+                <hr />
+            </div>
+            <div className='col-md-6 col-md-offset-2 jumbotron' dangerouslySetInnerHTML={{__html: text}}></div>
             {programs.map(prog => <QuizQuestion
                         onChange={answer => onAnswerChange(prog.name, answer)}
                         key={prog.name}
