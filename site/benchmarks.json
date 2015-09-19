@@ -60,7 +60,7 @@
         "rounded_iters": 1000
     },
     "loop.py": {
-        "code": "#!/usr/bin/env python\n\n# Number to guess: How many iterations of an empty loop can we go through in a second?\n\ndef f(NUMBER):\n    for _ in xrange(NUMBER):\n        pass\n\nimport sys\nf(int(sys.argv[1]))\n",
+        "code": "#!/usr/bin/env python\n\n# Number to guess: How many iterations of an\n# empty loop can we go through in a second?\n\ndef f(NUMBER):\n    for _ in xrange(NUMBER):\n        pass\n\nimport sys\nf(int(sys.argv[1]))\n",
         "exact_iters": 67618085,
         "rounded_iters": 100000000
     },
@@ -95,7 +95,7 @@
         "rounded_iters": 100
     },
     "sum.c": {
-        "code": "#include <stdlib.h>\n\n// Number to guess: How many iterations of this loop can we go through in a second?\n\nint main(int argc, char **argv) {\n    int NUMBER, i, s;\n    NUMBER = atoi(argv[1]);\n\n    for (s = i = 0; i < NUMBER; ++i) {\n        s += 1;\n    }\n\n    return 0;\n}\n",
+        "code": "#include <stdlib.h>\n\n// Number to guess: How many iterations of\n// this loop can we go through in a second?\n\nint main(int argc, char **argv) {\n    int NUMBER, i, s;\n    NUMBER = atoi(argv[1]);\n\n    for (s = i = 0; i < NUMBER; ++i) {\n        s += 1;\n    }\n\n    return 0;\n}\n",
         "exact_iters": 550429840,
         "rounded_iters": 1000000000
     },
