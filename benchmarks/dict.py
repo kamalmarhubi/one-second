@@ -3,14 +3,13 @@
 # Number to guess: How many entries can
 # we add to a dictionary in a second?
 
-CHUNK_SIZE = 10000
-strings = [str(i) for i in xrange(CHUNK_SIZE)]
+# Note: we take `i % 1000` to control
+# the size of the dictionary
 
 def f(NUMBER):
-    for i in xrange(NUMBER / CHUNK_SIZE):
-        d = {}
-        for s in strings:
-            d[s] = s
+    d = {}
+    for i in xrange(NUMBER):
+        d[i % 1000] = i
 
 import sys
 f(int(sys.argv[1]))
