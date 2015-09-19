@@ -25,7 +25,8 @@ class QuizQuestion extends React.Component {
 class AnswerSelector extends React.Component {
     render() {
         let { name, onChange, selectedAnswer } = this.props;
-        const options = [1, 10, 100, 1000, 10000];
+        const options = [1, 10, 100, 1000, 10000, 100000,
+            1000000, 10000000, 100000000, 100000000, 1000000000];
         return <ul>{ options.map(val => <AnswerChoice
                 key={val}
                 checked={val === selectedAnswer}
@@ -41,9 +42,9 @@ class AnswerChoice extends React.Component {
         let { value, name, onChange, checked } = this.props;
         let id = `${name}-${value}`;
         return <li>
-            <label htmlFor={id}>{value}</label>
             <input type='radio' name={name} id={id} value={value}
                 onChange={onChange} checked={checked} />
+            <label htmlFor={id}>{english(value)}</label>
         </li>;
     }
 }
