@@ -4,9 +4,41 @@ import React from 'react'
 import { createStore } from 'redux'
 import { connect, Provider } from 'react-redux'
 
+class Header extends React.Component {
+    render () {
+        let { selectedAnswers, benchmarks } = this.props;
+        return <nav className="navbar navbar-default navbar-fixed-top">
+          <div className="container-fluid">
+            <div className="navbar-header">
+              <button type="button" className="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                <span className="sr-only">Toggle navigation</span>
+                <span className="icon-bar"></span>
+                <span className="icon-bar"></span>
+                <span className="icon-bar"></span>
+              </button>
+              <a className="navbar-brand" href="/">★ One second code ★</a>
+            </div>
+
+            <div className="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+              <ul className="nav navbar-nav">
+                <li><a href="#">FAQ</a></li> 
+              </ul>
+              <ul className="nav navbar-nav navbar-right">
+                <li>
+                  <a href="#"><ScoreCard
+                    selectedAnswers={selectedAnswers} 
+                    benchmarks = {benchmarks}/> </a>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </nav>
+    }
+}
+
 class ScoreCard extends React.Component {
     render() {
-        let { selectedAnswers, benchmarks, curriculum } = this.props;
+        let { selectedAnswers, benchmarks } = this.props;
         var fixedStyle = {
            marginTop: "0 px",
            position: "fixed"
@@ -18,24 +50,13 @@ class ScoreCard extends React.Component {
                 numCorrect += 1
             }
         })
-        return <div className="container" style={fixedStyle}>
-            <div className="row" id="error-container">
-                 <div className="col-md-2 col-md-offset-10">  
-                     <div className="alert alert-error">
-                        Score: {numCorrect} / {total}
-                     </div>
-                 </div>
-            </div>
-        </div>;
+        return <span> <b>Score:</b> {numCorrect} / {total} </span>;
     }
 }
 
 class QuizQuestion extends React.Component {
     render() {
         let { code, name, selectedAnswer, rounded_iters:answer, exact_iters:exactAnswer, onChange } = this.props;
-        //  buttons + answer
-        //  
-        console.log("hi I am a question my answer is ", name, selectedAnswer)
         var answered = selectedAnswer !== undefined
         var correct = is_close(selectedAnswer, exactAnswer)
         var glyphType = correct ? "glyphicon glyphicon-ok" : "glyphicon glyphicon-remove"
@@ -138,10 +159,10 @@ class Quiz extends React.Component {
     render() {
         let { dispatch, curriculum, benchmarks, selectedAnswers } = this.props;
         return <div>
-            <ScoreCard
+            <Header
                 selectedAnswers={selectedAnswers} 
-                curriculum={curriculum}
                 benchmarks = {benchmarks}/>
+
             { curriculum.map(({text, programs}, index) =>
                 <Section
                     key={index}
@@ -164,7 +185,6 @@ function selectAnswer(program, answer) {
 }
 
 function questions(state=getInitialState(curriculum), action) {
-    console.log(state, action)
     switch (action.type) {
         case SET_ANSWER: 
             if (state.get(action.program) !== undefined) {
