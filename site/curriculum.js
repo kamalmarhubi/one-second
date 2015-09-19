@@ -29,13 +29,13 @@ const curriculum = [
         'text': `
             <p>
             File time! Sometimes I run a huge grep and it takes FOREVER. How many
-            bytes can `grep` search in a second? This will give us an idea of
+            bytes can grep search in a second? This will give us an idea of
             how much of grep's performance slowness is because of the search
             time required, and how much is because it needs to read from disk.
             </p>
 
             <p>
-            Listing files also takes time! How many files can `find` list in a second?
+            Listing files also takes time! How many files can find list in a second?
             </p>
         `,
         'programs': ["grep_bytes.sh", "find-filenames.sh"],
