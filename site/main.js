@@ -4,13 +4,40 @@ import React from 'react'
 import { createStore } from 'redux'
 import { connect, Provider } from 'react-redux'
 
+class ScoreCard extends React.Component {
+    render() {
+        let { selectedAnswers, benchmarks, curriculum } = this.props;
+        var fixedStyle = {
+           marginTop: "0 px",
+           position: "fixed"
+        };
+        var numCorrect = 0
+        var total = selectedAnswers.size
+        selectedAnswers.forEach((value, prog) => {
+            if (is_close(value, benchmarks[prog]['exact_iters'])) {
+                numCorrect += 1
+            }
+        })
+        return <div className="container" style={fixedStyle}>
+            <div className="row" id="error-container">
+                 <div className="col-md-2 col-md-offset-10">  
+                     <div className="alert alert-error">
+                        Score: {numCorrect} / {total}
+                     </div>
+                 </div>
+            </div>
+        </div>;
+    }
+}
+
 class QuizQuestion extends React.Component {
     render() {
         let { code, name, selectedAnswer, rounded_iters:answer, exact_iters:exactAnswer, onChange } = this.props;
         //  buttons + answer
         //  
+        console.log("hi I am a question my answer is ", name, selectedAnswer)
         var answered = selectedAnswer !== undefined
-        var correct = close(selectedAnswer, exactAnswer)
+        var correct = is_close(selectedAnswer, exactAnswer)
         var glyphType = correct ? "glyphicon glyphicon-ok" : "glyphicon glyphicon-remove"
         return <div className='col-md-5'>
             <h3>
@@ -29,7 +56,7 @@ class QuizQuestion extends React.Component {
     }
 }
 
-function close(selectedAnswer, actualAnswer) {
+function is_close(selectedAnswer, actualAnswer) {
     var ratio = (selectedAnswer / actualAnswer)
     return (ratio > 0.1 && ratio < 10)
 }
@@ -43,7 +70,7 @@ class AnswerSelector extends React.Component {
         { options.map(val => <AnswerChoice
                 key={val}
                 checked={val === selectedAnswer}
-                correct={close(val, exactAnswer)}
+                correct={is_close(val, exactAnswer)}
                 answered={selectedAnswer !== undefined}
                 name={name}
                 value={val}
@@ -98,17 +125,30 @@ class Section extends React.Component {
     }
 }
 
+function getInitialState(curriculum) {
+    let initialState = new Map()
+    allPrograms = [].concat.apply([],curriculum.map(({text, programs}, index) => programs))
+    allPrograms.forEach(program => {
+        initialState.set(program, undefined)
+    })
+    return initialState
+}
+
 class Quiz extends React.Component {
     render() {
         let { dispatch, curriculum, benchmarks, selectedAnswers } = this.props;
         return <div>
+            <ScoreCard
+                selectedAnswers={selectedAnswers} 
+                curriculum={curriculum}
+                benchmarks = {benchmarks}/>
             { curriculum.map(({text, programs}, index) =>
                 <Section
                     key={index}
                     onAnswerChange={(prog, answer) => dispatch(selectAnswer(prog, answer))}
                     text={text}
                     programs={
-                        programs.map(prog => Object.assign({name: prog, selectedAnswer: selectedAnswers[prog]}, benchmarks[prog]))
+                        programs.map(prog => Object.assign({name: prog, selectedAnswer: selectedAnswers.get(prog)}, benchmarks[prog]))
                     } />)
             }
         </div>;
@@ -123,13 +163,16 @@ function selectAnswer(program, answer) {
     return { type: SET_ANSWER, program, answer };
 }
 
-function questions(state={}, action) {
+function questions(state=getInitialState(curriculum), action) {
+    console.log(state, action)
     switch (action.type) {
         case SET_ANSWER: 
-            if (state[action.program] !== undefined) {
+            if (state.get(action.program) !== undefined) {
                 return state
             } else {
-                return Object.assign({}, state, {[action.program]: action.answer});
+                var newState = new Map(state)
+                newState.set(action.program, action.answer)
+                return newState
             }
         default:
             return state;
