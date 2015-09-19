@@ -31,6 +31,7 @@ class AnswerSelector extends React.Component {
         { options.map(val => <AnswerChoice
                 key={val}
                 checked={val === selectedAnswer}
+                disabled={selectedAnswer !== undefined}
                 name={name}
                 value={val}
                 onChange={() => onChange(val)} />)
@@ -41,9 +42,14 @@ class AnswerSelector extends React.Component {
 
 class AnswerChoice extends React.Component {
     render() {
-        let { value, name, onChange, checked } = this.props;
+        let { value, name, onChange, checked, disabled } = this.props;
         let id = `${name}-${value}`;
-        let btnClass = checked ? "btn btn-primary" : "btn"
+        let btnClass = "btn"
+        if (checked) {
+            btnClass += " btn-primary"
+        } else if (disabled) {
+            btnClass += " disabled"
+        }
         return <label className={btnClass} htmlFor={id}>
             <input type='radio' name={name} id={id} value={value}
                 onChange={onChange} checked={checked} />
@@ -92,8 +98,12 @@ function selectAnswer(program, answer) {
 
 function questions(state={}, action) {
     switch (action.type) {
-        case SET_ANSWER:
-            return Object.assign({}, state, {[action.program]: action.answer});
+        case SET_ANSWER: 
+            if (state[action.program] !== undefined) {
+                return state
+            } else {
+                return Object.assign({}, state, {[action.program]: action.answer});
+            }
         default:
             return state;
     }
