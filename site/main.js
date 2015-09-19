@@ -14,13 +14,14 @@ class QuizQuestion extends React.Component {
         var glyphType = correct ? "glyphicon glyphicon-ok" : "glyphicon glyphicon-remove"
         return <div className='col-md-5'>
             <h3>
-                {name}
                 {answered ? <span className={glyphType} aria-hidden="true"></span> : ""}
+                {name}
             </h3>
             <AnswerSelector name={name} selectedAnswer={selectedAnswer} exactAnswer={exactAnswer} onChange={onChange} />
             { selectedAnswer !== undefined ?
                 <div className='answer'>
-                    <b> Exact answer: </b>{english(exactAnswer)}
+                    <p> <b> You picked: </b>{english(selectedAnswer)} </p>
+                    <p> <b> Exact answer: </b>{english(exactAnswer)} </p>
                 </div>
             : undefined }
             <pre>{code}</pre>
