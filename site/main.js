@@ -9,12 +9,18 @@ class QuizQuestion extends React.Component {
         let { code, name, selectedAnswer, rounded_iters:answer, exact_iters:exactAnswer, onChange } = this.props;
         //  buttons + answer
         //  
+        var answered = selectedAnswer !== undefined
+        var correct = close(selectedAnswer, exactAnswer)
+        var glyphType = correct ? "glyphicon glyphicon-ok" : "glyphicon glyphicon-remove"
         return <div className='col-md-5'>
-            <h3>{name}</h3>
-            <AnswerSelector name={name} selectedAnswer={selectedAnswer} onChange={onChange} />
+            <h3>
+                {name}
+                {answered ? <span className={glyphType} aria-hidden="true"></span> : ""}
+            </h3>
+            <AnswerSelector name={name} selectedAnswer={selectedAnswer} exactAnswer={exactAnswer} onChange={onChange} />
             { selectedAnswer !== undefined ?
                 <div className='answer'>
-                    <b> Answer: </b>{english(answer)}  (exact amount: {english(exactAnswer)})
+                    <b> Exact answer: </b>{english(exactAnswer)}
                 </div>
             : undefined }
             <pre>{code}</pre>
@@ -22,16 +28,22 @@ class QuizQuestion extends React.Component {
     }
 }
 
+function close(selectedAnswer, actualAnswer) {
+    var ratio = (selectedAnswer / actualAnswer)
+    return (ratio > 0.1 && ratio < 10)
+}
+
 class AnswerSelector extends React.Component {
     render() {
-        let { name, onChange, selectedAnswer } = this.props;
+        let { name, onChange, selectedAnswer, exactAnswer } = this.props;
         const options = [1, 10, 100, 1000, 10000, 100000,
             1000000, 10000000, 100000000, 100000000, 1000000000];
         return <div className="btn-group" data-toggle="buttons">
         { options.map(val => <AnswerChoice
                 key={val}
                 checked={val === selectedAnswer}
-                disabled={selectedAnswer !== undefined}
+                correct={close(val, exactAnswer)}
+                answered={selectedAnswer !== undefined}
                 name={name}
                 value={val}
                 onChange={() => onChange(val)} />)
@@ -42,15 +54,29 @@ class AnswerSelector extends React.Component {
 
 class AnswerChoice extends React.Component {
     render() {
-        let { value, name, onChange, checked, disabled } = this.props;
+        let { value, name, onChange, checked, answered, correct } = this.props;
         let id = `${name}-${value}`;
         let btnClass = "btn"
-        if (checked) {
-            btnClass += " btn-primary"
-        } else if (disabled) {
-            btnClass += " disabled"
+        var selectedStyle = {
+          border: "2px solid"
+        };
+
+        if (answered) {
+            // only do special things to the buttons if there has been an answer
+            if (correct) {
+                btnClass += " btn-success"
+            }
+            if (checked) {
+                btnClass += " active"
+                if (!correct) {
+                    btnClass += " btn-danger"
+                }
+            }
+            if (!correct && !checked) {
+                btnClass += " disabled"
+            }
         }
-        return <label className={btnClass} htmlFor={id}>
+        return <label className={btnClass} htmlFor={id} style={checked ? selectedStyle : {}}>
             <input type='radio' name={name} id={id} value={value}
                 onChange={onChange} checked={checked} />
             {english(value)}</label>;
