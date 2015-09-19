@@ -12,12 +12,12 @@ class QuizQuestion extends React.Component {
         return <div className='col-md-5'>
             <h3>{name}</h3>
             <AnswerSelector name={name} selectedAnswer={selectedAnswer} onChange={onChange} />
-            <pre>{code}</pre>
             { selectedAnswer !== undefined ?
                 <div className='answer'>
                     <b> Answer: </b>{english(answer)}  (exact amount: {english(exactAnswer)})
                 </div>
             : undefined }
+            <pre>{code}</pre>
         </div>;
     }
 }
@@ -27,13 +27,15 @@ class AnswerSelector extends React.Component {
         let { name, onChange, selectedAnswer } = this.props;
         const options = [1, 10, 100, 1000, 10000, 100000,
             1000000, 10000000, 100000000, 100000000, 1000000000];
-        return <ul>{ options.map(val => <AnswerChoice
+        return <div className="btn-group" data-toggle="buttons">
+        { options.map(val => <AnswerChoice
                 key={val}
                 checked={val === selectedAnswer}
                 name={name}
                 value={val}
                 onChange={() => onChange(val)} />)
-        }</ul>;
+        }
+        </div>;
     }
 }
 
@@ -41,11 +43,11 @@ class AnswerChoice extends React.Component {
     render() {
         let { value, name, onChange, checked } = this.props;
         let id = `${name}-${value}`;
-        return <li>
+        let btnClass = checked ? "btn btn-primary" : "btn"
+        return <label className={btnClass} htmlFor={id}>
             <input type='radio' name={name} id={id} value={value}
                 onChange={onChange} checked={checked} />
-            <label htmlFor={id}>{english(value)}</label>
-        </li>;
+            {english(value)}</label>;
     }
 }
 
