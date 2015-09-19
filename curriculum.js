@@ -29,11 +29,26 @@ const curriculum = [
         'text': `
             <p>
             File time! Sometimes I run a huge grep and it takes FOREVER. How many
-            files do you think we can grep in a second? What if we just list the
-            filenames instead?
+            bytes can grep search in a second? This will give us an idea of
+            how much of grep's performance slowness is because of the search
+            time required, and how much is because it needs to read from disk.
+            </p>
+
+            <p>
+            Listing files also takes time! How many files can find list in a second?
             </p>
         `,
-        'programs': ["grep_files_and_fail.sh", "find-filenames.sh"],
+        'programs': ["grep_bytes.sh", "find-filenames.sh"],
+    },
+    {
+        'text': `
+            <p>
+            DATABASES. We don't have anything fancy like PostgreSQL for you,
+            but we made 2 copies of a SQLite table with 10 million rows, one
+            indexed and one unindexed.
+            </p>
+        `,
+        'programs': ["database_indexed.py", "database_unindexed.py"],
     },
     {
         'text': `
