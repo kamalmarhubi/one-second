@@ -219,7 +219,7 @@ var english = function(iters) {
 
 let store = createStore(questions);
 
-$.getJSON("benchmarks.json", function(result) {
+$.getJSON("./benchmarks.json", function(result) {
     React.render(<Provider store={store}>
                 {() => <SmartQuiz curriculum={curriculum} benchmarks={result}/>}
             </Provider>, document.getElementById('quiz'));
