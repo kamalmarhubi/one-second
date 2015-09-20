@@ -131,7 +131,11 @@ class AnswerChoice extends React.Component {
 
 class Section extends React.Component {
     render() {
-        let { onAnswerChange, text, programs } = this.props;
+        let { onAnswerChange, text, programs, conclusion, finished } = this.props;
+        var finishedStyle = {
+            backgroundColor: 'deeppink',
+            color: 'white'
+        }
         return <div className='row'>
             <div className='col-md-10'>
                 <hr />
@@ -142,6 +146,11 @@ class Section extends React.Component {
                         key={prog.name}
                         {...prog}
                     />)}
+            { (conclusion && finished) ? 
+              <div className='col-md-6 col-md-offset-2 jumbotron' style={finishedStyle}> <p> 
+              {conclusion} </p> </div>
+              : ""
+            }
         </div>;
     }
 }
@@ -163,14 +172,24 @@ class Quiz extends React.Component {
                 selectedAnswers={selectedAnswers} 
                 benchmarks = {benchmarks}/>
 
-            { curriculum.map(({text, programs}, index) =>
-                <Section
+            { curriculum.map(({text, programs, conclusion}, index) => {
+
+                var finished = true
+                programs.forEach(program => {
+                    if (selectedAnswers.get(program) === undefined) {
+                        finished = false
+                    }
+                })
+                return <Section
                     key={index}
                     onAnswerChange={(prog, answer) => dispatch(selectAnswer(prog, answer))}
                     text={text}
+                    finished={finished}
+                    conclusion={conclusion}
                     programs={
                         programs.map(prog => Object.assign({name: prog, selectedAnswer: selectedAnswers.get(prog)}, benchmarks[prog]))
-                    } />)
+                    } />
+                })
             }
         </div>;
     }

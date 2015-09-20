@@ -10,7 +10,7 @@ const curriculum = [
         'text': `<p>Now that we know about the most we can expect from Python
          (100 million things/s), let's explore a slightly more realistic use
          case. Dictionaries are used just about everywhere in Python, so how
-         many strings can we add to a dictionary in Python in a second?</p>
+         many elements can we add to a dictionary in Python in a second?</p>
 
         <p>
         Once you've gotten that one, let's look at a more complicated operation
@@ -29,8 +29,13 @@ const curriculum = [
         'text': `
             <p>
             File time! Sometimes I run a huge grep and it takes FOREVER. How many
-            bytes can grep search in a second? This will give us an idea of
-            how much of grep's performance slowness is because of the search
+            bytes can grep search in a second?
+            </p>
+
+            <p>
+            Note when doing this one that the bytes grep is reading are already in memory.
+            This will give us an idea of
+            how much of grep's slowness is because of the search
             time required, and how much is because it needs to read from disk.
             </p>
 
@@ -38,9 +43,24 @@ const curriculum = [
             Listing files also takes time! How many files can find list in a second?
             </p>
         `,
+        'conclusion': `
+            Great! Now we know that grep can search at 2GB/s, so at least in this case,
+            we're limited more by the disk speed than grep's speed`,
+
         'programs': ["grep_bytes.sh", "find-filenames.sh"],
     },
     {
+        'text': `
+            <p>
+            Serialization is a pretty common place to spend a lot of time, and
+            it can really hurt, especially if you end up serializing/deserializing
+            the same data repeatedly.
+            Here are a couple of benchmarks: of parsing 64K of JSON, and the
+            same data encoded in msgpack format.
+            </p>
+        `,
+        'programs': ["json_parse.py", "msgpack_parse.py"],
+    },    {
         'text': `
             <p>
             DATABASES. We don't have anything fancy like PostgreSQL for you,
