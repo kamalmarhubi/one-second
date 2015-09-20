@@ -1,0 +1,2 @@
+read from fs cache <----> read cold
+json deserialization <----> protobuf
