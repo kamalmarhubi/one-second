@@ -1,5 +1,8 @@
 #!/usr/bin/env python
 
+# Number to guess: How many times can we parse
+# 64K of JSON in a second?
+
 import json
 
 with open('./setup/protobuf/message.json') as f:

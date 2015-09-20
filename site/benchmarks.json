@@ -55,8 +55,8 @@
         "rounded_iters": 1000000000
     },
     "json_parse.py": {
-        "code": "#!/usr/bin/env python\n\nimport json\n\nwith open('./setup/protobuf/message.json') as f:\n    message = f.read()\n\ndef f(NUMBER):\n    for _ in xrange(NUMBER):\n        json.loads(message)\n\nimport sys\nf(int(sys.argv[1]))\n",
-        "exact_iters": 408,
+        "code": "#!/usr/bin/env python\n\n# Number to guess: How many times can we parse\n# 64K of JSON in a second?\n\nimport json\n\nwith open('./setup/protobuf/message.json') as f:\n    message = f.read()\n\ndef f(NUMBER):\n    for _ in xrange(NUMBER):\n        json.loads(message)\n\nimport sys\nf(int(sys.argv[1]))\n",
+        "exact_iters": 449,
         "rounded_iters": 1000
     },
     "loop.py": {
@@ -80,7 +80,7 @@
         "rounded_iters": 10000000
     },
     "msgpack_parse.py": {
-        "code": "#!/usr/bin/env python\n\nimport msgpack\n\nwith open('./setup/protobuf/message.msgpack') as f:\n    message = f.read()\n\ndef f(NUMBER):\n    for _ in xrange(NUMBER):\n        msgpack.unpackb(message)\n\nimport sys\nf(int(sys.argv[1]))\n",
+        "code": "#!/usr/bin/env python\n\n# Number to guess: How many times can we parse\n# 46K of msgpack data in a second?\n\nimport msgpack\n\nwith open('./setup/protobuf/message.msgpack') as f:\n    message = f.read()\n\ndef f(NUMBER):\n    for _ in xrange(NUMBER):\n        msgpack.unpackb(message)\n\nimport sys\nf(int(sys.argv[1]))\n",
         "exact_iters": 3681,
         "rounded_iters": 10000
     },
