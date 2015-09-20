@@ -91,7 +91,7 @@
     },
     "protobuf_parse.py": {
         "code": "#!/usr/bin/env python\n\nimport sys\nsys.path.insert(0, './setup/protobuf')\nfrom test_pb2 import TestMessage\n\nwith open('./setup/protobuf/message.protobuf') as f:\n    message = f.read()\n\ndef f(NUMBER):\n    for _ in xrange(NUMBER):\n        m = TestMessage()\n        TestMessage.ParseFromString(m, message)\n\nimport sys\nf(int(sys.argv[1]))\n",
-        "exact_iters": 33,
+        "exact_iters": 85,
         "rounded_iters": 100
     },
     "run_bin_true.sh": {
