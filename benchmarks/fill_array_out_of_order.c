@@ -18,7 +18,8 @@ int main(int argc, char **argv) {
         array[j] = j;
     }
 
-    printf("%d", array[NUMBER / 7]); // so that -O2 doesn't optimize out the array
+    printf("%d", array[NUMBER / 7]);
+    // so that -O2 doesn't optimize out the loop
 
     return 0;
 }
