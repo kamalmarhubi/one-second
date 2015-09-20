@@ -1,0 +1,6 @@
+bcrypt==2.0.0
+cffi==1.2.1
+protobuf==2.6.1
+pycparser==2.14
+six==1.9.0
+wheel==0.24.0
