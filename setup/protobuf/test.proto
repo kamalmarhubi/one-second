@@ -1,0 +1,13 @@
+package protobuf_json_test;
+
+message TestMessage {
+	required int32 id = 1;
+	optional bool flag = 3;
+	message NestedMsg {
+		required int32 id = 1;
+		optional string title = 2;
+		optional string url = 3;
+	}
+	repeated NestedMsg nested_msgs = 6;
+	repeated int32 rep_int = 7;
+}

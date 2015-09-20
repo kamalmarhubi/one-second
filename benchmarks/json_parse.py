@@ -2,12 +2,12 @@
 
 import json
 
-#j = json.dumps({'%d' % (i): i for i in xrange(10000)})
-j = json.dumps(range(10000))
+with open('./setup/protobuf/message.json') as f:
+    message = f.read()
 
 def f(NUMBER):
     for _ in xrange(NUMBER):
-        json.loads(j)
+        json.loads(message)
 
 import sys
 f(int(sys.argv[1]))

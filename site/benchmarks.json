@@ -55,8 +55,8 @@
         "rounded_iters": 1000000000
     },
     "json_parse.py": {
-        "code": "#!/usr/bin/env python\n\nimport json\n\n#j = json.dumps({'%d' % (i): i for i in xrange(10000)})\nj = json.dumps(range(10000))\n\ndef f(NUMBER):\n    for _ in xrange(NUMBER):\n        json.loads(j)\n\nimport sys\nf(int(sys.argv[1]))\n",
-        "exact_iters": 725,
+        "code": "#!/usr/bin/env python\n\nimport json\n\nwith open('./setup/protobuf/message.json') as f:\n    message = f.read()\n\ndef f(NUMBER):\n    for _ in xrange(NUMBER):\n        json.loads(message)\n\nimport sys\nf(int(sys.argv[1]))\n",
+        "exact_iters": 449,
         "rounded_iters": 1000
     },
     "loop.py": {
@@ -88,6 +88,11 @@
         "code": "#!/usr/bin/env python\n\n# Number to guess: How many HTTP requests\n# can we parse in a second?\n\nfrom BaseHTTPServer import BaseHTTPRequestHandler\nfrom StringIO import StringIO\n\nclass HTTPRequest(BaseHTTPRequestHandler):\n    def __init__(self, request_text):\n        self.rfile = StringIO(request_text)\n        self.raw_requestline = self.rfile.readline()\n        self.error_code = self.error_message = None\n        self.parse_request()\n\n    def send_error(self, code, message):\n        self.error_code = code\n        self.error_message = message\n\nrequest_text = \"\"\"GET / HTTP/1.1\nHost: localhost:8001\nConnection: keep-alive\nAccept: text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8\nUpgrade-Insecure-Requests: 1\nUser-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_10_5) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/45.0.2454.85 Safari/537.36\nAccept-Encoding: gzip, deflate, sdch\nAccept-Language: en-GB,en-US;q=0.8,en;q=0.6\n\"\"\"\n\ndef f(NUMBER):\n    for _ in range(NUMBER):\n        HTTPRequest(request_text)\n\nimport sys\nf(int(sys.argv[1]))\n",
         "exact_iters": 24796,
         "rounded_iters": 10000
+    },
+    "protobuf_parse.py": {
+        "code": "#!/usr/bin/env python\n\nimport sys\nsys.path.insert(0, './setup/protobuf')\nfrom test_pb2 import TestMessage\n\nwith open('./setup/protobuf/message.protobuf') as f:\n    message = f.read()\n\ndef f(NUMBER):\n    for _ in xrange(NUMBER):\n        m = TestMessage()\n        TestMessage.ParseFromString(m, message)\n\nimport sys\nf(int(sys.argv[1]))\n",
+        "exact_iters": 33,
+        "rounded_iters": 100
     },
     "run_bin_true.sh": {
         "code": "#!/bin/bash\n\nNUMBER=$1\n\nfor i in $(seq $NUMBER); do\n    /usr/bin/env true;\ndone\n",
