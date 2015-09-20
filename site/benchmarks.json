@@ -5,12 +5,12 @@
         "rounded_iters": 1
     },
     "database_indexed.py": {
-        "code": "#!/usr/bin/env python\n\n# Number to guess: How many times can we\n# select a row from an **indexed** table with \n# 10,000,000 rows?\n\nimport sqlite3\n\nconn = sqlite3.connect('./indexed_db.sqlite')\nc = conn.cursor()\ndef f(NUMBER):\n    for i in xrange(NUMBER):\n        c.execute(\"select * from my_table where key = %d\" % i)\n        c.fetchall()\n\nimport sys\nf(int(sys.argv[1]))\n",
-        "exact_iters": 27276,
-        "rounded_iters": 10000
+        "code": "#!/usr/bin/env python\n\n# Number to guess: How many times can we\n# select a row from an **indexed** table with \n# 10,000,000 rows?\n\nimport sqlite3\n\nconn = sqlite3.connect('./indexed_db.sqlite')\nc = conn.cursor()\ndef f(NUMBER):\n    query = \"select * from my_table where key = %d\" % 5\n    for i in xrange(NUMBER):\n        c.execute(query)\n        c.fetchall()\n\nimport sys\nf(int(sys.argv[1]))\n",
+        "exact_iters": 53158,
+        "rounded_iters": 100000
     },
     "database_unindexed.py": {
-        "code": "#!/usr/bin/env python\n\n# Number to guess: How many times can we\n# select a row from an **unindexed** table with \n# 10,000,000 rows?\n\nimport sqlite3\n\nconn = sqlite3.connect('./unindexed_db.sqlite')\nc = conn.cursor()\ndef f(NUMBER):\n    for i in xrange(NUMBER):\n        c.execute(\"select * from my_table where key = %d\" % i)\n        c.fetchall()\n\nimport sys\nf(int(sys.argv[1]))\n",
+        "code": "#!/usr/bin/env python\n\n# Number to guess: How many times can we\n# select a row from an **unindexed** table with \n# 10,000,000 rows?\n\nimport sqlite3\n\nconn = sqlite3.connect('./unindexed_db.sqlite')\nc = conn.cursor()\ndef f(NUMBER):\n    query = \"select * from my_table where key = %d\" % 5\n    for i in xrange(NUMBER):\n        c.execute(query)\n        c.fetchall()\n\nimport sys\nf(int(sys.argv[1]))\n",
         "exact_iters": 2,
         "rounded_iters": 1
     },
@@ -78,6 +78,11 @@
         "code": "#!/usr/bin/env python\n\nimport json\n\ndef f(NUMBER):\n    for i in xrange(NUMBER):\n        [0]\n\nimport sys\nf(int(sys.argv[1]))\n",
         "exact_iters": 11056092,
         "rounded_iters": 10000000
+    },
+    "object_create.py": {
+        "code": "#!/usr/bin/env python\n\nimport json\n\n#j = json.dumps({'%d' % (i): i for i in xrange(10000)})\nj = json.dumps(range(10000))\n\nclass MyObject(object):\n    def __init__(self):\n        self.a  = 'a'\n        self.b  = 'b'\n        self.c  = 'a'\n        self.d  = 'b'\n        self.e  = 'a'\n        self.f  = 'b'\n        self.g  = 'a'\n        self.h  = 'b'\n        self.i  = 'a'\n        self.j  = 'b'\n        self.k  = 'a'\n        self.l  = 'b'\n        self.m  = 'a'\n        self.n  = 'b'\n        self.o  = 'a'\n        self.p  = 'b'\n        self.q  = 'a'\n        self.r  = 'b'\n        self.s  = 'a'\n        self.t  = 'b'\n        self.u  = 'a'\n        self.v  = 'b'\n        self.w  = 'b'\n        self.x  = 'b'\n        self.y  = 'b'\n        self.z  = 'b'\n\n\ndef f(NUMBER):\n    for _ in xrange(NUMBER):\n        MyObject()\n\nimport sys\nf(int(sys.argv[1]))\n",
+        "exact_iters": 523638,
+        "rounded_iters": 1000000
     },
     "parse_http_request.py": {
         "code": "#!/usr/bin/env python\n\n# Number to guess: How many HTTP requests\n# can we parse in a second?\n\nfrom BaseHTTPServer import BaseHTTPRequestHandler\nfrom StringIO import StringIO\n\nclass HTTPRequest(BaseHTTPRequestHandler):\n    def __init__(self, request_text):\n        self.rfile = StringIO(request_text)\n        self.raw_requestline = self.rfile.readline()\n        self.error_code = self.error_message = None\n        self.parse_request()\n\n    def send_error(self, code, message):\n        self.error_code = code\n        self.error_message = message\n\nrequest_text = \"\"\"GET / HTTP/1.1\nHost: localhost:8001\nConnection: keep-alive\nAccept: text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8\nUpgrade-Insecure-Requests: 1\nUser-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_10_5) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/45.0.2454.85 Safari/537.36\nAccept-Encoding: gzip, deflate, sdch\nAccept-Language: en-GB,en-US;q=0.8,en;q=0.6\n\"\"\"\n\ndef f(NUMBER):\n    for _ in range(NUMBER):\n        HTTPRequest(request_text)\n\nimport sys\nf(int(sys.argv[1]))\n",

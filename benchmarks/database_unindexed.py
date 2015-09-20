@@ -9,8 +9,9 @@ import sqlite3
 conn = sqlite3.connect('./unindexed_db.sqlite')
 c = conn.cursor()
 def f(NUMBER):
+    query = "select * from my_table where key = %d" % 5
     for i in xrange(NUMBER):
-        c.execute("select * from my_table where key = %d" % i)
+        c.execute(query)
         c.fetchall()
 
 import sys
