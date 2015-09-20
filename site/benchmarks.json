@@ -56,7 +56,7 @@
     },
     "json_parse.py": {
         "code": "#!/usr/bin/env python\n\nimport json\n\nwith open('./setup/protobuf/message.json') as f:\n    message = f.read()\n\ndef f(NUMBER):\n    for _ in xrange(NUMBER):\n        json.loads(message)\n\nimport sys\nf(int(sys.argv[1]))\n",
-        "exact_iters": 449,
+        "exact_iters": 408,
         "rounded_iters": 1000
     },
     "loop.py": {
@@ -78,6 +78,11 @@
         "code": "#!/usr/bin/env python\n\nimport json\n\ndef f(NUMBER):\n    for i in xrange(NUMBER):\n        [0]\n\nimport sys\nf(int(sys.argv[1]))\n",
         "exact_iters": 11056092,
         "rounded_iters": 10000000
+    },
+    "msgpack_parse.py": {
+        "code": "#!/usr/bin/env python\n\nimport msgpack\n\nwith open('./setup/protobuf/message.msgpack') as f:\n    message = f.read()\n\ndef f(NUMBER):\n    for _ in xrange(NUMBER):\n        msgpack.unpackb(message)\n\nimport sys\nf(int(sys.argv[1]))\n",
+        "exact_iters": 3681,
+        "rounded_iters": 10000
     },
     "object_create.py": {
         "code": "#!/usr/bin/env python\n\nimport json\n\n#j = json.dumps({'%d' % (i): i for i in xrange(10000)})\nj = json.dumps(range(10000))\n\nclass MyObject(object):\n    def __init__(self):\n        self.a  = 'a'\n        self.b  = 'b'\n        self.c  = 'a'\n        self.d  = 'b'\n        self.e  = 'a'\n        self.f  = 'b'\n        self.g  = 'a'\n        self.h  = 'b'\n        self.i  = 'a'\n        self.j  = 'b'\n        self.k  = 'a'\n        self.l  = 'b'\n        self.m  = 'a'\n        self.n  = 'b'\n        self.o  = 'a'\n        self.p  = 'b'\n        self.q  = 'a'\n        self.r  = 'b'\n        self.s  = 'a'\n        self.t  = 'b'\n        self.u  = 'a'\n        self.v  = 'b'\n        self.w  = 'b'\n        self.x  = 'b'\n        self.y  = 'b'\n        self.z  = 'b'\n\n\ndef f(NUMBER):\n    for _ in xrange(NUMBER):\n        MyObject()\n\nimport sys\nf(int(sys.argv[1]))\n",
