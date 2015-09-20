@@ -54,7 +54,7 @@ def benchmark(prog):
 def compile(source):
     if source.endswith(".c"):
         binary = source.replace(".c", "")
-        subprocess.check_call(["gcc", "-o", binary, source])
+        subprocess.check_call(["gcc", "-O2", "-o", binary, source])
     else:
         binary = source
     return source, binary

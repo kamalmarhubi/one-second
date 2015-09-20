@@ -25,13 +25,13 @@
         "rounded_iters": 10
     },
     "fill_array.c": {
-        "code": "#include <stdlib.h>\n\n// Number to guess: How big of an array (in bytes)\n// can we allocate and fill with 5s in a second?\n\nint main(int argc, char **argv) {\n    int NUMBER, i;\n    NUMBER = atoi(argv[1]);\n\n    char* array = malloc(NUMBER);\n    for (i = 0; i < NUMBER; ++i) {\n        array[i] = 5;\n    }\n\n    return 0;\n}\n",
-        "exact_iters": 375950985,
+        "code": "#include <stdlib.h>\n#include <stdio.h>\n\n// Number to guess: How big of an array (in bytes)\n// can we allocate and fill in a second?\n\n// this is intentionally more complicated than it needs to be\n// so that it matches the out-of-order version :)\n\nint main(int argc, char **argv) {\n    int NUMBER, i;\n    NUMBER = atoi(argv[1]);\n\n    char* array = malloc(NUMBER);\n    int j = 1;\n    for (i = 0; i < NUMBER; ++i) {\n        j = j * 2;\n        if (j > NUMBER) {\n            j = j - NUMBER;\n        }\n        array[i] = j;\n    }\n\n    printf(\"%d\", array[NUMBER / 7]); // so that -O2 doesn't optimize out the array\n\n    return 0;\n}\n",
+        "exact_iters": 666020107,
         "rounded_iters": 1000000000
     },
     "fill_array_out_of_order.c": {
-        "code": "#include <stdlib.h>\n#include <stdio.h>\n\n// Number to guess: How big of an array (in bytes)\n// can we allocate and fill with 5s in a second?\n// The catch: We do it out of order instead of in order.\nint main(int argc, char **argv) {\n    int NUMBER, i;\n    NUMBER = atoi(argv[1]);\n\n    char* array = malloc(NUMBER);\n    int j = 1;\n    for (i = 0; i < NUMBER; ++i) {\n        j = j * 2;\n        if (j > NUMBER) {\n            j = j - NUMBER;\n        }\n        array[j] = 5;\n    }\n\n    return 0;\n}\n",
-        "exact_iters": 50802467,
+        "code": "#include <stdlib.h>\n#include <stdio.h>\n\n// Number to guess: How big of an array (in bytes)\n// can we allocate and fill with 5s in a second?\n// The catch: We do it out of order instead of in order.\nint main(int argc, char **argv) {\n    int NUMBER, i;\n    NUMBER = atoi(argv[1]);\n\n    char* array = malloc(NUMBER);\n    int j = 1;\n    for (i = 0; i < NUMBER; ++i) {\n        j = j * 2;\n        if (j > NUMBER) {\n            j = j - NUMBER;\n        }\n        array[j] = j;\n    }\n\n    printf(\"%d\", array[NUMBER / 7]); // so that -O2 doesn't optimize out the array\n\n    return 0;\n}\n",
+        "exact_iters": 67618085,
         "rounded_iters": 100000000
     },
     "find-filenames.sh": {

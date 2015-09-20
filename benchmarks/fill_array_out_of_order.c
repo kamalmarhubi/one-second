@@ -15,8 +15,10 @@ int main(int argc, char **argv) {
         if (j > NUMBER) {
             j = j - NUMBER;
         }
-        array[j] = 5;
+        array[j] = j;
     }
+
+    printf("%d", array[NUMBER / 7]); // so that -O2 doesn't optimize out the array
 
     return 0;
 }
