@@ -1,7 +1,8 @@
 #!/usr/bin/env python
 
 # Number to guess: How many entries can
-# we add to a dictionary in a second?
+# we add to a dictionary of a fixed maximum size
+# in a second?
 
 # Note: we take `i % 1000` to control
 # the size of the dictionary
