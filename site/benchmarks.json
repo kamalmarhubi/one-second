@@ -1,4 +1,14 @@
 {
+    "angle.c": {
+        "code": "#include <math.h>\n#include <stdlib.h>\n#include <stdio.h>\n\n// Number to guess: We generate two random unit vectors in \n// N dimensions and calculate their dot product. How big\n// can we make N in a second?\n\nint main(int argc, char **argv) {\n    int NUMBER, i;\n    double sum1 = 0;\n    double sum2 = 0;\n    NUMBER = atoi(argv[1]);\n\n    int* arr1 = malloc(sizeof(int) * NUMBER);\n    int* arr2 = malloc(sizeof(int) * NUMBER);\n\n    for (i = 0; i < NUMBER; ++i) {\n        int rand1 = rand() % 20000 - 10000;\n        int rand2 = rand() % 20000 - 10000;\n        arr1[i] = rand1;\n        arr2[i] = rand2;\n        sum1 += rand1 * rand1;\n        sum2 += rand2 * rand2;\n    }\n\n    double norm1 = sqrt(sum1);\n    double norm2 = sqrt(sum2);\n\n\n    double dot_product = 0;\n    for (i = 0; i < NUMBER; ++i) {\n        // We normalize the vectors to unit vectors here\n        double x1 = ((double) arr1[i]) / norm1;\n        double x2 = ((double) arr2[i]) / norm2;\n        dot_product += x1 * x2;\n    }\n\n    printf(\"%f \", dot_product);\n\n    return 0;\n}\n",
+        "exact_iters": 46184060,
+        "rounded_iters": 100000000
+    },
+    "angle.py": {
+        "code": "#!/usr/bin/env python\n\n# Number to guess: We generate two random unit vectors in \n# N dimensions and calculate their dot product. How big\n# can we make N in a second?\n\nimport math\nimport random\n\ndef f(NUMBER):\n    arr1 = []\n    arr2 = []\n    sum1 = 0\n    sum2 = 0\n    for i in xrange(NUMBER):\n        rand1 = random.randint(-10000, 10000)\n        rand2 = random.randint(-10000, 10000)\n        arr1.append(rand1)\n        sum1 += rand1 * rand1\n        sum2 += rand2 * rand2\n        arr2.append(rand2)\n    norm1 = math.sqrt(sum1)\n    norm2 = math.sqrt(sum2)\n    dot_product = 0\n    for i in xrange(NUMBER):\n        # We normalize the vectors to unit vectors here\n        dot_product += arr1[i] * 1.0 / norm1 * arr2[i] * 1.0 / norm2\n    print dot_product,\n\nimport sys\nf(int(sys.argv[1]))\n",
+        "exact_iters": 393416,
+        "rounded_iters": 1000000
+    },
     "bcrypt_hash.py": {
         "code": "#!/usr/bin/env python\n\n# Number to guess: How many passwords\n# can we bcrypt in a second?\n\nimport bcrypt\n\npassword = 'a' * 100\n\ndef f(NUMBER):\n    for _ in xrange(NUMBER):\n        bcrypt.hashpw(password, bcrypt.gensalt())\n        \nimport sys\nf(int(sys.argv[1]))\n",
         "exact_iters": 3,
@@ -79,6 +89,16 @@
         "exact_iters": 11056092,
         "rounded_iters": 10000000
     },
+    "math_sin.c": {
+        "code": "#include <math.h>\n\n// Number to guess: how many times can we sum sin(x)?\n\nint main(int argc, char **argv) {\n    int NUMBER, i;\n    double s = 0;\n    NUMBER = atoi(argv[1]);\n\n    for (i = 0; i < NUMBER; ++i) {\n        s += sin(i);\n    }\n    printf(\"%d\", s);\n\n    return 0;\n}\n",
+        "exact_iters": 50802467,
+        "rounded_iters": 100000000
+    },
+    "math_sin.py": {
+        "code": "#!/usr/bin/env python\n\n# Number to guess: how many times can we sum sin(x)?\n\nimport math\n\ndef f(NUMBER):\n    s = 0\n    for x in xrange(NUMBER):\n        s += math.sin(x)\n\nimport sys\nf(int(sys.argv[1]))\n",
+        "exact_iters": 6864961,
+        "rounded_iters": 10000000
+    },
     "msgpack_parse.py": {
         "code": "#!/usr/bin/env python\n\n# Number to guess: How many times can we parse\n# 46K of msgpack data in a second?\n\nimport msgpack\n\nwith open('./setup/protobuf/message.msgpack') as f:\n    message = f.read()\n\ndef f(NUMBER):\n    for _ in xrange(NUMBER):\n        msgpack.unpackb(message)\n\nimport sys\nf(int(sys.argv[1]))\n",
         "exact_iters": 3681,
@@ -101,7 +121,7 @@
     },
     "run_bin_true.sh": {
         "code": "#!/bin/bash\n\nNUMBER=$1\n\nfor i in $(seq $NUMBER); do\n    /usr/bin/env true;\ndone\n",
-        "exact_iters": 370,
+        "exact_iters": 449,
         "rounded_iters": 1000
     },
     "run_python.sh": {
