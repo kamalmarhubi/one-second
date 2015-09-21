@@ -51,6 +51,22 @@ const curriculum = [
     {
         'text': `
             <p>
+            How many bytes can you write to disk in a second? We all know writing
+            to memory is faster, but how *much* faster? This code was run on a
+            computer with an SSD
+            </p>
+        `,
+
+        'programs': ["write_to_disk.py", "write_to_memory.py"],
+        'conclusion': `
+            Disks are slower than memory, and this matters even if you're using a 'slow' language like Python,
+            and if you have an extremely fast disk (my SSD has been known to write at > 500MB/s, which is *fast*).
+            A lot of things end up being dominated by disk speed. We'll see that in the next example!
+        `
+    },
+    {
+        'text': `
+            <p>
             File time! Sometimes I run a huge grep and it takes FOREVER. How many
             bytes can grep search in a second?
             </p>
@@ -113,7 +129,6 @@ const curriculum = [
             </p>
         `,
         'programs': ["hash.py", "bcrypt_hash.py"]
-        'conclusion': `MD5 is real fast: I won't complain about 400MB/s.`
     },
     {
         'text': `
@@ -129,24 +144,13 @@ const curriculum = [
             to guess at this one.
             </p>
         `,
-        'programs': ["fill_array.c", "fill_array_out_of_order.c"]
+        'programs': ["fill_array.c", "fill_array_out_of_order.c"],
         'conclusion': `
             We don't write a lot of C, so this doesn't affect us very often.
             But if you care about how many nanoseconds your operations take
             (which you do if you're trying to do a billion things a second, which computers can),
             you care about this kind of thing a lot.
         `
-    },
-    {
-        'text': `
-            <p>
-            How many bytes can you write to disk in a second? We all know writing
-            to memory is faster, but how *much* faster? This code was run on a
-            computer with an SSD
-            </p>
-        `,
-
-        'programs': ["write_to_disk.py", "write_to_memory.py"]
     }
 ]
 
