@@ -57,7 +57,7 @@ class QuizQuestion extends React.Component {
         var answered = selectedAnswer !== undefined
         var correct = is_close(selectedAnswer, exactAnswer)
         var glyphType = correct ? "glyphicon glyphicon-ok" : "glyphicon glyphicon-remove"
-        return <div className='col-md-5'>
+        return <div className='col-md-6'>
             <h3>
                 {answered ? <span className={glyphType} aria-hidden="true"></span> : ""}
                 {name}
@@ -141,18 +141,21 @@ class Section extends React.Component {
             backgroundColor: 'rgb(181, 155, 205)',
             color: 'white'
         }
-        return <div className='row'>
-            <div className='col-md-10'>
-                <hr />
-            </div>
-            <div className='col-md-6 col-md-offset-2 jumbotron' style={introStyle} dangerouslySetInnerHTML={{__html: text}}></div>
+        var ousideStyle = {
+            border: "1px dotted rebeccapurple",
+            borderRadius: '20px',
+            paddingTop: '10px',
+            marginTop: '20px',
+        }
+        return <div className='row col-md-12' style={ousideStyle}>
+            <div className='col-md-10 col-md-offset-1 jumbotron' style={introStyle} dangerouslySetInnerHTML={{__html: text}}></div>
             {programs.map(prog => <QuizQuestion
                         onChange={answer => onAnswerChange(prog.name, answer)}
                         key={prog.name}
                         {...prog}
                     />)}
             { (conclusion && finished) ? 
-              <div className='col-md-6 col-md-offset-2 jumbotron' style={finishedStyle}> <p> 
+              <div className='col-md-10 col-md-offset-1 jumbotron' style={finishedStyle}> <p> 
               {conclusion} </p> </div>
               : ""
             }
