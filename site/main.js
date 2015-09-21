@@ -132,15 +132,20 @@ class AnswerChoice extends React.Component {
 class Section extends React.Component {
     render() {
         let { onAnswerChange, text, programs, conclusion, finished } = this.props;
+        var introStyle = {
+            border: "3px solid rebeccapurple",
+            color: "rebeccapurple",
+            backgroundColor: "white",
+        }
         var finishedStyle = {
-            backgroundColor: 'deeppink',
+            backgroundColor: 'rgb(181, 155, 205)',
             color: 'white'
         }
         return <div className='row'>
             <div className='col-md-10'>
                 <hr />
             </div>
-            <div className='col-md-6 col-md-offset-2 jumbotron' dangerouslySetInnerHTML={{__html: text}}></div>
+            <div className='col-md-6 col-md-offset-2 jumbotron' style={introStyle} dangerouslySetInnerHTML={{__html: text}}></div>
             {programs.map(prog => <QuizQuestion
                         onChange={answer => onAnswerChange(prog.name, answer)}
                         key={prog.name}
