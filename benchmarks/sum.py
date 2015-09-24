@@ -5,5 +5,6 @@ def f(NUMBER):
     for i in xrange(NUMBER):
         s += 1
 
-import sys
-f(int(sys.argv[1]))
+if __name__ == '__main__':
+    import sys
+    f(int(sys.argv[1]))

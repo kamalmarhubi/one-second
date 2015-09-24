@@ -11,5 +11,6 @@ def f(NUMBER):
         r = urlopen("http://google.com")
         r.read()
 
-import sys
-f(int(sys.argv[1]))
+if __name__ == '__main__':
+    import sys
+    f(int(sys.argv[1]))

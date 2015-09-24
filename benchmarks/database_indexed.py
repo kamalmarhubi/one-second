@@ -14,5 +14,6 @@ def f(NUMBER):
         c.execute(query)
         c.fetchall()
 
-import sys
-f(int(sys.argv[1]))
+if __name__ == '__main__':
+    import sys
+    f(int(sys.argv[1]))

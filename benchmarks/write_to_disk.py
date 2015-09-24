@@ -28,5 +28,6 @@ def f(NUMBER):
         bytes_written += CHUNK_SIZE
     cleanup(f, name)
 
-import sys
-f(int(sys.argv[1]))
+if __name__ == '__main__':
+    import sys
+    f(int(sys.argv[1]))

@@ -12,5 +12,6 @@ def f(NUMBER):
     for i in xrange(NUMBER):
         d[i % 1000] = i
 
-import sys
-f(int(sys.argv[1]))
+if __name__ == '__main__':
+    import sys
+    f(int(sys.argv[1]))

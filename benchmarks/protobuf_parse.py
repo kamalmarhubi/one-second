@@ -12,5 +12,6 @@ def f(NUMBER):
         m = TestMessage()
         TestMessage.ParseFromString(m, message)
 
-import sys
-f(int(sys.argv[1]))
+if __name__ == '__main__':
+    import sys
+    f(int(sys.argv[1]))

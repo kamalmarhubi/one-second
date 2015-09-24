@@ -31,5 +31,6 @@ def f(NUMBER):
     for _ in range(NUMBER):
         HTTPRequest(request_text)
 
-import sys
-f(int(sys.argv[1]))
+if __name__ == '__main__':
+    import sys
+    f(int(sys.argv[1]))
