@@ -21,6 +21,7 @@ System.config({
     "react": "npm:react@0.13.3",
     "react-redux": "npm:react-redux@2.1.2",
     "redux": "npm:redux@3.0.0",
+    "tachyons": "npm:tachyons@3.0.1",
     "github:jspm/nodelibs-buffer@0.1.0": {
       "buffer": "npm:buffer@3.5.0"
     },
@@ -124,6 +125,10 @@ System.config({
     },
     "npm:string_decoder@0.10.31": {
       "buffer": "github:jspm/nodelibs-buffer@0.1.0"
+    },
+    "npm:tachyons@3.0.1": {
+      "fs": "github:jspm/nodelibs-fs@0.1.2",
+      "systemjs-json": "github:systemjs/plugin-json@0.1.0"
     },
     "npm:through@2.3.8": {
       "process": "github:jspm/nodelibs-process@0.1.1",
