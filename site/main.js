@@ -37,11 +37,8 @@ class QuizQuestion extends React.Component {
         var answered = selectedAnswer !== undefined
         var correct = is_close(selectedAnswer, exactAnswer)
         var gradeGlyph = correct ? "✓" : "✗"
-        return <div className='dtc'>
-            <h3>
-                {answered ? gradeGlyph: ""}
-                {name}
-            </h3>
+        return <div className="fl w-100 w-50-l mhm mhl-m mhn-l phm-l">
+            <h3>{answered ? gradeGlyph: ""} {name}</h3>
             <AnswerSelector name={name} selectedAnswer={selectedAnswer} exactAnswer={exactAnswer} onChange={onChange} />
             { selectedAnswer !== undefined ?
                 <div>
@@ -49,7 +46,7 @@ class QuizQuestion extends React.Component {
                     <p> <b> Exact answer: </b>{english(exactAnswer)} </p>
                 </div>
             : undefined }
-            <pre>{code}</pre>
+            <pre className="f5 lh-solid">{code}</pre>
         </div>;
     }
 }
@@ -82,36 +79,41 @@ class AnswerChoice extends React.Component {
     render() {
         let { value, name, onChange, checked, answered, correct } = this.props;
         let id = `${name}-${value}`;
-        let btnClass = "btn"
-        var selectedStyle = {
-          border: "2px solid"
-        };
 
-        // TODO: add color styling
+        // TODO: add color and selection styling
 
-        return <label className={btnClass} htmlFor={id} style={checked ? selectedStyle : {}}>
-            <input type='radio' className='dn' name={name} id={id} value={value}
-                onChange={onChange} checked={checked} />
-            {english(value)}</label>;
+        return (
+            <div className="dib">
+                <label htmlFor={id}>
+                    {english(value)}
+                </label>
+                <input type="radio" className="dn" name={name} id={id} value={value}
+                    onChange={onChange} checked={checked}
+                />
+            </div>
+        );
     }
 }
 
 class Section extends React.Component {
     render() {
         let { onAnswerChange, text, programs, conclusion, finished } = this.props;
-        return <div className='dt'>
-            <div className='dtr' dangerouslySetInnerHTML={{__html: text}}></div>
+        return <section>
+            <div className="w-75 center f4 f3-l measure lh-copy"
+            dangerouslySetInnerHTML={{__html: text}}></div>
+            <div className="cf">
             {programs.map(prog => <QuizQuestion
                         onChange={answer => onAnswerChange(prog.name, answer)}
                         key={prog.name}
                         {...prog}
                     />)}
+            </div>
             { (conclusion && finished) ? 
-              <div className='dtr'> <p> 
+              <div className="w-75 center f3 measure lh-copy"> <p> 
               {conclusion} </p> </div>
               : ""
             }
-        </div>;
+        </section>;
     }
 }
 
@@ -127,7 +129,7 @@ function getInitialState(curriculum) {
 class Quiz extends React.Component {
     render() {
         let { dispatch, curriculum, benchmarks, selectedAnswers } = this.props;
-        return <div>
+        return <div className="mw-8">
             <Header
                 selectedAnswers={selectedAnswers} 
                 benchmarks = {benchmarks}/>
