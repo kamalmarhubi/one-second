@@ -1,7 +1,7 @@
 {
   "scripts": {
     "postinstall": "node_modules/.bin/jspm install",
-    "serve": "node_modules/.bin/http-server site/"
+    "serve": "node_modules/.bin/jspm-server site/"
   },
   "jspm": {
     "directories": {
@@ -20,7 +20,7 @@
     }
   },
   "devDependencies": {
-    "http-server": "^0.8.0",
-    "jspm": "^0.16.2"
+    "jspm": "^0.16.2",
+    "jspm-server": "^0.1.8"
   }
 }
