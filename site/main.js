@@ -7,39 +7,19 @@ import { connect, Provider } from 'react-redux'
 class Header extends React.Component {
     render () {
         let { selectedAnswers, benchmarks } = this.props;
-        return <nav className="b--orange bdt">
-          <div className="container-fluid">
-            <div className="navbar-header">
-              <button type="button" className="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
-                <span className="sr-only">Toggle navigation</span>
-                <span className="icon-bar"></span>
-                <span className="icon-bar"></span>
-                <span className="icon-bar"></span>
-              </button>
-              <a className="navbar-brand" href="/">★ One second code ★</a>
+        return (
+            <div>
+                <a href="/">★ One second code ★</a>
+                <ScoreCard selectedAnswers={selectedAnswers} benchmarks={benchmarks}/> 
             </div>
+        );
 
-            <div className="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-              <ul className="nav navbar-nav navbar-right">
-                <li>
-                  <a href="#"><ScoreCard
-                    selectedAnswers={selectedAnswers} 
-                    benchmarks = {benchmarks}/> </a>
-                </li>
-              </ul>
-            </div>
-          </div>
-        </nav>
     }
 }
 
 class ScoreCard extends React.Component {
     render() {
         let { selectedAnswers, benchmarks } = this.props;
-        var fixedStyle = {
-           marginTop: "0 px",
-           position: "fixed"
-        };
         var numCorrect = 0
         var total = selectedAnswers.size
         selectedAnswers.forEach((value, prog) => {
@@ -56,15 +36,15 @@ class QuizQuestion extends React.Component {
         let { code, name, selectedAnswer, rounded_iters:answer, exact_iters:exactAnswer, onChange } = this.props;
         var answered = selectedAnswer !== undefined
         var correct = is_close(selectedAnswer, exactAnswer)
-        var glyphType = correct ? "glyphicon glyphicon-ok" : "glyphicon glyphicon-remove"
+        var gradeGlyph = correct ? "✓" : "✗"
         return <div className='dtc'>
             <h3>
-                {answered ? <span className={glyphType} aria-hidden="true"></span> : ""}
+                {answered ? gradeGlyph: ""}
                 {name}
             </h3>
             <AnswerSelector name={name} selectedAnswer={selectedAnswer} exactAnswer={exactAnswer} onChange={onChange} />
             { selectedAnswer !== undefined ?
-                <div className='answer'>
+                <div>
                     <p> <b> You picked: </b>{english(selectedAnswer)} </p>
                     <p> <b> Exact answer: </b>{english(exactAnswer)} </p>
                 </div>
@@ -107,21 +87,8 @@ class AnswerChoice extends React.Component {
           border: "2px solid"
         };
 
-        if (answered) {
-            // only do special things to the buttons if there has been an answer
-            if (correct) {
-                btnClass += " btn-success"
-            }
-            if (checked) {
-                btnClass += " active"
-                if (!correct) {
-                    btnClass += " btn-danger"
-                }
-            }
-            if (!correct && !checked) {
-                btnClass += " disabled"
-            }
-        }
+        // TODO: add color styling
+
         return <label className={btnClass} htmlFor={id} style={checked ? selectedStyle : {}}>
             <input type='radio' className='dn' name={name} id={id} value={value}
                 onChange={onChange} checked={checked} />
@@ -140,7 +107,7 @@ class Section extends React.Component {
                         {...prog}
                     />)}
             { (conclusion && finished) ? 
-              <div className=''> <p> 
+              <div className='dtr'> <p> 
               {conclusion} </p> </div>
               : ""
             }
