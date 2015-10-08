@@ -7,7 +7,7 @@ import { connect, Provider } from 'react-redux'
 class Header extends React.Component {
     render () {
         let { selectedAnswers, benchmarks } = this.props;
-        return <nav className="navbar navbar-default navbar-fixed-top">
+        return <nav className="b--orange bdt">
           <div className="container-fluid">
             <div className="navbar-header">
               <button type="button" className="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
@@ -47,7 +47,7 @@ class ScoreCard extends React.Component {
                 numCorrect += 1
             }
         })
-        return <span> <b>Score:</b> {numCorrect} / {total} </span>;
+        return <span className="tracked-tight"> <b>Score:</b> <span className="v-sup">{numCorrect}</span> / <span className="v-sub">{total}</span> </span>;
     }
 }
 
@@ -57,7 +57,7 @@ class QuizQuestion extends React.Component {
         var answered = selectedAnswer !== undefined
         var correct = is_close(selectedAnswer, exactAnswer)
         var glyphType = correct ? "glyphicon glyphicon-ok" : "glyphicon glyphicon-remove"
-        return <div className='col-md-6'>
+        return <div className='dtc'>
             <h3>
                 {answered ? <span className={glyphType} aria-hidden="true"></span> : ""}
                 {name}
@@ -84,7 +84,7 @@ class AnswerSelector extends React.Component {
         let { name, onChange, selectedAnswer, exactAnswer } = this.props;
         const options = [1, 10, 100, 1000, 10000, 100000,
             1000000, 10000000, 100000000, 100000000, 1000000000];
-        return <div className="btn-group" data-toggle="buttons">
+        return <ul>
         { options.map(val => <AnswerChoice
                 key={val}
                 checked={val === selectedAnswer}
@@ -94,7 +94,7 @@ class AnswerSelector extends React.Component {
                 value={val}
                 onChange={() => onChange(val)} />)
         }
-        </div>;
+        </ul>;
     }
 }
 
@@ -123,7 +123,7 @@ class AnswerChoice extends React.Component {
             }
         }
         return <label className={btnClass} htmlFor={id} style={checked ? selectedStyle : {}}>
-            <input type='radio' name={name} id={id} value={value}
+            <input type='radio' className='dn' name={name} id={id} value={value}
                 onChange={onChange} checked={checked} />
             {english(value)}</label>;
     }
@@ -132,31 +132,15 @@ class AnswerChoice extends React.Component {
 class Section extends React.Component {
     render() {
         let { onAnswerChange, text, programs, conclusion, finished } = this.props;
-        var introStyle = {
-            //border: "3px solid rebeccapurple",
-            color: "rebeccapurple",
-            fontSize: "1.5em",
-            paddingTop: '2em',
-        }
-        var finishedStyle = {
-            backgroundColor: 'rgb(181, 155, 205)',
-            color: 'white'
-        }
-        var ousideStyle = {
-            border: "1px dotted rebeccapurple",
-            borderRadius: '20px',
-            paddingTop: '10px',
-            marginTop: '20px',
-        }
-        return <div className='row col-md-12' style={ousideStyle}>
-            <div className='col-md-8 col-md-offset-2' style={introStyle} dangerouslySetInnerHTML={{__html: text}}></div>
+        return <div className='dt'>
+            <div className='dtr' dangerouslySetInnerHTML={{__html: text}}></div>
             {programs.map(prog => <QuizQuestion
                         onChange={answer => onAnswerChange(prog.name, answer)}
                         key={prog.name}
                         {...prog}
                     />)}
             { (conclusion && finished) ? 
-              <div className='col-md-10 col-md-offset-1 jumbotron' style={finishedStyle}> <p> 
+              <div className=''> <p> 
               {conclusion} </p> </div>
               : ""
             }
