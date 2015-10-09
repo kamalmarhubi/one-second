@@ -46,7 +46,7 @@ class QuizQuestion extends React.Component {
                     <p> <b> Exact answer: </b>{english(exactAnswer)} </p>
                 </div>
             : undefined }
-            <pre className="f5 lh-solid">{code}</pre>
+            <pre className="f5 ofx-scr bg-near-white pas b--light-silver ba br2">{code}</pre>
         </div>;
     }
 }
@@ -80,11 +80,20 @@ class AnswerChoice extends React.Component {
         let { value, name, onChange, checked, answered, correct } = this.props;
         let id = `${name}-${value}`;
 
-        // TODO: add color and selection styling
+        let className = "dib phs pvxs tc ultrabold br2 mrxs mlxs mvxs b--black-20 br2 ba";
+        if (checked) {
+            className += ""; // TODO
+        }
+        if (answered && correct) {
+            className += " bg-light-green near-white";
+        }
+        if (checked && !correct) {
+            className += " bg-red near-white"
+        }
 
         return (
-            <div className="dib">
-                <label htmlFor={id}>
+            <div className={className}>
+                <label  htmlFor={id}>
                     {english(value)}
                 </label>
                 <input type="radio" className="dn" name={name} id={id} value={value}
@@ -98,9 +107,10 @@ class AnswerChoice extends React.Component {
 class Section extends React.Component {
     render() {
         let { onAnswerChange, text, programs, conclusion, finished } = this.props;
-        return <section>
-            <div className="w-75 center f4 f3-l measure lh-copy"
-            dangerouslySetInnerHTML={{__html: text}}></div>
+        return <section className="mtxl ptl bdt">
+            <div className="bg-light-gray pam br3 mhl mhxxl-l">
+            <div className="measure lh-copy f4 f3-l mw-75 center" dangerouslySetInnerHTML={{__html: text}}></div>
+            </div>
             <div className="cf">
             {programs.map(prog => <QuizQuestion
                         onChange={answer => onAnswerChange(prog.name, answer)}
@@ -109,7 +119,8 @@ class Section extends React.Component {
                     />)}
             </div>
             { (conclusion && finished) ? 
-              <div className="w-75 center f3 measure lh-copy"> <p> 
+              <div className="w-75 center f4 f3-l measure lh-copy">
+                  <h2 className="f4 f3-l teal">Now that you've guessed</h2><p> 
               {conclusion} </p> </div>
               : ""
             }
