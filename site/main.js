@@ -4,6 +4,8 @@ import React from 'react'
 import { createStore } from 'redux'
 import { connect, Provider } from 'react-redux'
 
+// TODO: add a space for wrapup comments once people are done
+
 class Header extends React.Component {
     render () {
         let { selectedAnswers, benchmarks } = this.props;
@@ -17,6 +19,7 @@ class Header extends React.Component {
     }
 }
 
+// TODO: make this better: n questions left, x / y correct so far
 class ScoreCard extends React.Component {
     render() {
         let { selectedAnswers, benchmarks } = this.props;
