@@ -41,7 +41,10 @@ class QuizQuestion extends React.Component {
         var correct = is_close(selectedAnswer, exactAnswer)
         var gradeGlyph = correct ? "✓" : "✗"
         return <div className="fl w-100 w-50-l mhm mhl-m mhn-l phm-l">
-            <h3>{answered ? gradeGlyph: ""} {name}</h3>
+            <div className="pos-rel h2">
+                <h3 className="pos-abs left-0">{name}</h3>
+                <h3 className="pos-abs right-0 mrl">{answered ? gradeGlyph: ""}</h3>
+            </div>
             <AnswerSelector name={name} selectedAnswer={selectedAnswer} exactAnswer={exactAnswer} onChange={onChange} />
             { selectedAnswer !== undefined ?
                 <div>
