@@ -46,12 +46,11 @@ class QuizQuestion extends React.Component {
                 <h3 className="pos-abs right-0 mrl">{answered ? gradeGlyph: ""}</h3>
             </div>
             <AnswerSelector name={name} selectedAnswer={selectedAnswer} exactAnswer={exactAnswer} onChange={onChange} />
+            <div className="h1">
             { selectedAnswer !== undefined ?
-                <div>
-                    <p> <b> You picked: </b>{english(selectedAnswer)} </p>
                     <p> <b> Exact answer: </b>{english(exactAnswer)} </p>
-                </div>
             : undefined }
+            </div>
             <pre className="f5 ofx-scr bg-near-white pas b--light-silver ba br2">{code}</pre>
         </div>;
     }
@@ -86,25 +85,53 @@ class AnswerChoice extends React.Component {
         let { value, name, onChange, checked, answered, correct } = this.props;
         let id = `${name}-${value}`;
 
-        let className = "dib phs pvxs tc ultrabold mrxs mlxs mvxs b--black-20 br2 ba";
+        // This is really messy and could be cleaned up. Intent is to have a
+        // border that is more visible if checked. Achieved by a having an
+        // outer div whose border is invisible unless checked. This eliminates
+        // janky movement of elements because their size no longer changes.
+
+        let outerClassName = "dib br2 mrxs mlxs mvxs ba bw1";
+
+        // This exists to override the colors set as part of the class.
+        let invisibleBorder = { borderColor: "rgba(0,0,0,0)" };
+        let outerStyle = checked ? {} : invisibleBorder;
+
+        let innerStyle = checked ? invisibleBorder : {};
+
+        let className = "dib phs pvxs tc ultrabold br2 ba";
+
         if (checked) {
-            className += ""; // TODO
+            outerClassName += " b--black-40";
+            className += " near-white b--black-40" ;
         }
-        if (answered && correct) {
-            className += " bg-light-green near-white";
+
+        if (!checked || !answered) {
+            className += " b--black-20";
         }
+
         if (checked && !correct) {
-            className += " bg-red near-white"
+            outerClassName += " bg-red";
+            className += " bg-red";
+        }
+
+        if (checked && correct) {
+            outerClassName += " bg-light-green";
+        }
+
+        if (answered && correct) {
+            className += " near-white bg-light-green";
         }
 
         return (
-            <div className={className}>
-                <label  htmlFor={id}>
-                    {english(value)}
-                </label>
-                <input type="radio" className="dn" name={name} id={id} value={value}
-                    onChange={onChange} checked={checked}
-                />
+            <div onClick={onChange} className={outerClassName} style={outerStyle}>
+                <div className={className} style={innerStyle}>
+                    <label htmlFor={id}>
+                        {english(value)}
+                    </label>
+                    <input type="radio" className="dn" name={name} id={id} value={value}
+                        onChange={onChange} checked={checked}
+                    />
+                </div>
             </div>
         );
     }
