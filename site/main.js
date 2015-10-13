@@ -83,7 +83,7 @@ class AnswerChoice extends React.Component {
         let { value, name, onChange, checked, answered, correct } = this.props;
         let id = `${name}-${value}`;
 
-        let className = "dib phs pvxs tc ultrabold br2 mrxs mlxs mvxs b--black-20 br2 ba";
+        let className = "dib phs pvxs tc ultrabold mrxs mlxs mvxs b--black-20 br2 ba";
         if (checked) {
             className += ""; // TODO
         }
