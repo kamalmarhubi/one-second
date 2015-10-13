@@ -1,4 +1,4 @@
-import $ from 'jquery'
+import 'fetch'
 import curriculum from 'curriculum'
 import React from 'react'
 import { createStore } from 'redux'
@@ -241,9 +241,13 @@ var english = function(iters) {
 
 let store = createStore(questions);
 
-$.getJSON("benchmarks.json", function(result) {
-    React.render(<Provider store={store}>
+fetch("benchmarks.json")
+    .then(response => response.json())
+    .then(result => {
+        console.log(result);
+        React.render(<Provider store={store}>
                 {() => <SmartQuiz curriculum={curriculum} benchmarks={result}/>}
-            </Provider>, document.getElementById('quiz'));
-});
+                </Provider>, document.getElementById('quiz'));
+        return response.json()
+    });
 

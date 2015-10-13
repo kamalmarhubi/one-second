@@ -17,7 +17,7 @@ System.config({
     "babel": "npm:babel-core@5.8.24",
     "babel-runtime": "npm:babel-runtime@5.8.24",
     "core-js": "npm:core-js@1.1.4",
-    "jquery": "github:components/jquery@2.1.4",
+    "fetch": "github:github/fetch@0.10.0",
     "react": "npm:react@0.13.3",
     "react-redux": "npm:react-redux@2.1.2",
     "redux": "npm:redux@3.0.0",
