@@ -6,12 +6,26 @@ import { connect, Provider } from 'react-redux'
 import Firebase from 'firebase'
 import uuid from 'uuid'
 
-let attemptId = uuid.v4();
-let fbRef = new Firebase(`https://computers-are-fast.firebaseio.com/attempts/${attemptId}`);
-
-let storeAnswer = (questionId, answer) => {
-    fbRef.set(questionId, answer);
+// Persist a user ID for users making multiple attempts
+let userId = localStorage.oneSecondUserId;
+if (userId == null) {
+    userId = uuid.v4();
+    localStorage.oneSecondUserId = userId;
 }
+
+let attemptId = uuid.v4();
+
+let userRef = new Firebase(
+    `https://computers-are-fast.firebaseio.com/users/${userId}`
+);
+
+let attemptRef = userRef.child(`attempts/${attemptId}`);
+
+// Record time the attempt was started
+attemptRef.set({started: Firebase.ServerValue.TIMESTAMP});
+
+// This will be used in a store subscriber below
+let answersRef = attemptRef.child("answers");
 
 
 // TODO: add a space for wrapup comments once people are done
@@ -263,7 +277,7 @@ store.subscribe(() => {
                     return {[k.replace(".", "_")]: v || null };  // Firebase doesn't allow undefined
                 })));
         console.log(stateObj);
-        fbRef.set(stateObj);
+        answersRef.set(stateObj);
 
     }
 });
