@@ -3,6 +3,16 @@ import curriculum from 'curriculum'
 import React from 'react'
 import { createStore } from 'redux'
 import { connect, Provider } from 'react-redux'
+import Firebase from 'firebase'
+import uuid from 'uuid'
+
+let attemptId = uuid.v4();
+let fbRef = new Firebase(`https://computers-are-fast.firebaseio.com/attempts/${attemptId}`);
+
+let storeAnswer = (questionId, answer) => {
+    fbRef.set(questionId, answer);
+}
+
 
 // TODO: add a space for wrapup comments once people are done
 
@@ -240,6 +250,23 @@ var english = function(iters) {
 }
 
 let store = createStore(questions);
+
+let currentValue;
+store.subscribe(() => {
+    let previousValue = currentValue;
+    currentValue = store.getState();
+
+    if (previousValue !== currentValue) {
+        // lol really no way to go form string map to object easily?
+        let stateObj = Object.assign({},
+                ...([...store.getState()].map(([k,v]) => {
+                    return {[k.replace(".", "_")]: v || null };  // Firebase doesn't allow undefined
+                })));
+        console.log(stateObj);
+        fbRef.set(stateObj);
+
+    }
+});
 
 fetch("benchmarks.json")
     .then(response => response.json())
