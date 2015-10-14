@@ -1,0 +1,21 @@
+{
+  "author": "Andrew Nesbitt <andrewnez@gmail.com> (http://andrew-nesbitt.com/)",
+  "name": "base62",
+  "description": "Javascript Base62 encode/decoder",
+  "keywords": ["base-62"],
+  "version": "0.1.1",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/andrew/base62.js.git"
+  },
+  "main": "base62.js",
+  "engines": {
+    "node": "*"
+  },
+  "scripts": {
+    "test": "mocha test"
+  },
+  "devDependencies": {
+    "mocha": "1.7.x"
+  }
+}

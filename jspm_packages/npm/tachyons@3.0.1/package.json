@@ -1,0 +1,66 @@
+{
+  "name": "tachyons",
+  "version": "3.0.1",
+  "description": "Performant, mobile-first, and 100% responsive modular css framework.",
+  "main": "index.html",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/mrmrs/tachyons.git"
+  },
+  "keywords": [
+    "css",
+    "sass",
+    "oocss",
+    "performance"
+  ],
+  "author": "mrmrs",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/mrmrs/tachyons/issues"
+  },
+  "devDependencies": {
+    "browser-sync": "^1.1.1",
+    "css": "^2.1.0",
+    "css-parse": "^2.0.0",
+    "cssstats": "^1.10.0",
+    "filesize": "^3.1.2",
+    "gulp": "^3.8.2",
+    "gulp-autoprefixer": "0.0.7",
+    "gulp-basswork": "0.0.11",
+    "gulp-csslint": "^0.1.4",
+    "gulp-file-include": "^0.5.1",
+    "gulp-minify-css": "^0.3.5",
+    "gulp-rename": "^1.2.0",
+    "gulp-sass": "^0.7.2",
+    "gulp-shell": "^0.2.8",
+    "gulp-size": "^0.4.0",
+    "gulp-uncss": "^0.4.4",
+    "gulp-util": "^2.2.18",
+    "gulp-watch": "^0.6.8",
+    "lodash": "^3.10.0",
+    "node-sass": "^0.9",
+    "postcss": "^4.1.16"
+  },
+  "contributors": [
+    {
+      "name": "adam morse",
+      "email": "hi@mrmrs.cc"
+    },
+    {
+      "name": "robert forloine",
+      "url": "http://www.sndsgn.com"
+    },
+    {
+      "name": "david potsiadlo",
+      "url": "http://www.davidpots.com/"
+    },
+    {
+      "name": "tyler benziger",
+      "url": "http://tybenz.com"
+    }
+  ],
+  "scripts": {
+    "start": "gulp",
+    "build": "node home.js"
+  }
+}

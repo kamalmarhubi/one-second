@@ -1,0 +1,1 @@
+module.exports = require("npm:uuid@2.0.1/uuid");

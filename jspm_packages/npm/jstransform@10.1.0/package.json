@@ -1,0 +1,52 @@
+{
+  "name": "jstransform",
+  "version": "10.1.0",
+  "description": "A simple AST visitor-based JS transformer",
+  "contributors": [
+    {
+      "name": "Jeff Morrison",
+      "email": "jeffmo@fb.com"
+    }
+  ],
+  "main": "src/jstransform",
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:facebook/jstransform.git"
+  },
+  "keywords": [
+    "transformer",
+    "compiler",
+    "syntax",
+    "visitor"
+  ],
+  "dependencies": {
+    "base62": "0.1.1",
+    "esprima-fb": "13001.1001.0-dev-harmony-fb",
+    "source-map": "0.1.31"
+  },
+  "licenses": [
+    {
+      "type": "Apache-2.0",
+      "url": "http://www.apache.org/licenses/LICENSE-2.0"
+    }
+  ],
+  "engines": {
+    "node": ">=0.8.8"
+  },
+  "devDependencies": {
+    "jest-cli": "^0.2",
+    "jshint": "^2.5.10"
+  },
+  "jest": {
+    "scriptPreprocessor": "<rootDir>/jestPreprocessor.js",
+    "setupEnvScriptFile": "<rootDir>/jestEnvironment.js",
+    "testPathIgnorePatterns": [
+      "/node_modules/",
+      "/__tests__/[^/]*/.+"
+    ]
+  },
+  "scripts": {
+    "prepublish": "jest && jshint --config=.jshintrc --exclude=node_modules .",
+    "test": "jest && jshint --config=.jshintrc --exclude=node_modules ."
+  }
+}

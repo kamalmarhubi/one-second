@@ -1,0 +1,1 @@
+module.exports = require("npm:miller-rabin@2.0.1/lib/mr");

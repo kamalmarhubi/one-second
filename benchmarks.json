@@ -1,16 +1,26 @@
 {
+    "angle.c": {
+        "code": "#include <math.h>\n#include <stdlib.h>\n#include <stdio.h>\n\n// Number to guess: We generate two random unit vectors in \n// N dimensions and calculate their dot product. How big\n// can we make N in a second?\n\nint main(int argc, char **argv) {\n    int NUMBER, i;\n    double sum1 = 0;\n    double sum2 = 0;\n    NUMBER = atoi(argv[1]);\n\n    int* arr1 = malloc(sizeof(int) * NUMBER);\n    int* arr2 = malloc(sizeof(int) * NUMBER);\n\n    for (i = 0; i < NUMBER; ++i) {\n        int rand1 = rand() % 20000 - 10000;\n        int rand2 = rand() % 20000 - 10000;\n        arr1[i] = rand1;\n        arr2[i] = rand2;\n        sum1 += rand1 * rand1;\n        sum2 += rand2 * rand2;\n    }\n\n    double norm1 = sqrt(sum1);\n    double norm2 = sqrt(sum2);\n\n\n    double dot_product = 0;\n    for (i = 0; i < NUMBER; ++i) {\n        // We normalize the vectors to unit vectors here\n        double x1 = ((double) arr1[i]) / norm1;\n        double x2 = ((double) arr2[i]) / norm2;\n        dot_product += x1 * x2;\n    }\n\n    printf(\"%f \", dot_product);\n\n    return 0;\n}\n",
+        "exact_iters": 46184060,
+        "rounded_iters": 100000000
+    },
+    "angle.py": {
+        "code": "#!/usr/bin/env python\n\n# Number to guess: We generate two random unit vectors in \n# N dimensions and calculate their dot product. How big\n# can we make N in a second?\n\nimport math\nimport random\n\ndef f(NUMBER):\n    arr1 = []\n    arr2 = []\n    sum1 = 0\n    sum2 = 0\n    for i in xrange(NUMBER):\n        rand1 = random.randint(-10000, 10000)\n        rand2 = random.randint(-10000, 10000)\n        arr1.append(rand1)\n        sum1 += rand1 * rand1\n        sum2 += rand2 * rand2\n        arr2.append(rand2)\n    norm1 = math.sqrt(sum1)\n    norm2 = math.sqrt(sum2)\n    dot_product = 0\n    for i in xrange(NUMBER):\n        # We normalize the vectors to unit vectors here\n        dot_product += arr1[i] * 1.0 / norm1 * arr2[i] * 1.0 / norm2\n    print dot_product,\n\nimport sys\nf(int(sys.argv[1]))\n",
+        "exact_iters": 393416,
+        "rounded_iters": 1000000
+    },
     "bcrypt_hash.py": {
         "code": "#!/usr/bin/env python\n\n# Number to guess: How many passwords\n# can we bcrypt in a second?\n\nimport bcrypt\n\npassword = 'a' * 100\n\ndef f(NUMBER):\n    for _ in xrange(NUMBER):\n        bcrypt.hashpw(password, bcrypt.gensalt())\n        \nimport sys\nf(int(sys.argv[1]))\n",
         "exact_iters": 3,
         "rounded_iters": 1
     },
     "database_indexed.py": {
-        "code": "#!/usr/bin/env python\n\n# Number to guess: How many times can we\n# select a row from an **indexed** table with \n# 10,000,000 rows?\n\nimport sqlite3\n\nconn = sqlite3.connect('./indexed_db.sqlite')\nc = conn.cursor()\ndef f(NUMBER):\n    for i in xrange(NUMBER):\n        c.execute(\"select * from my_table where key = %d\" % i)\n        c.fetchall()\n\nimport sys\nf(int(sys.argv[1]))\n",
-        "exact_iters": 27276,
-        "rounded_iters": 10000
+        "code": "#!/usr/bin/env python\n\n# Number to guess: How many times can we\n# select a row from an **indexed** table with \n# 10,000,000 rows?\n\nimport sqlite3\n\nconn = sqlite3.connect('./indexed_db.sqlite')\nc = conn.cursor()\ndef f(NUMBER):\n    query = \"select * from my_table where key = %d\" % 5\n    for i in xrange(NUMBER):\n        c.execute(query)\n        c.fetchall()\n\nimport sys\nf(int(sys.argv[1]))\n",
+        "exact_iters": 53158,
+        "rounded_iters": 100000
     },
     "database_unindexed.py": {
-        "code": "#!/usr/bin/env python\n\n# Number to guess: How many times can we\n# select a row from an **unindexed** table with \n# 10,000,000 rows?\n\nimport sqlite3\n\nconn = sqlite3.connect('./unindexed_db.sqlite')\nc = conn.cursor()\ndef f(NUMBER):\n    for i in xrange(NUMBER):\n        c.execute(\"select * from my_table where key = %d\" % i)\n        c.fetchall()\n\nimport sys\nf(int(sys.argv[1]))\n",
+        "code": "#!/usr/bin/env python\n\n# Number to guess: How many times can we\n# select a row from an **unindexed** table with \n# 10,000,000 rows?\n\nimport sqlite3\n\nconn = sqlite3.connect('./unindexed_db.sqlite')\nc = conn.cursor()\ndef f(NUMBER):\n    query = \"select * from my_table where key = %d\" % 5\n    for i in xrange(NUMBER):\n        c.execute(query)\n        c.fetchall()\n\nimport sys\nf(int(sys.argv[1]))\n",
         "exact_iters": 2,
         "rounded_iters": 1
     },
@@ -25,13 +35,13 @@
         "rounded_iters": 10
     },
     "fill_array.c": {
-        "code": "#include <stdlib.h>\n\n// Number to guess: How big of an array (in bytes)\n// can we allocate and fill with 5s in a second?\n\nint main(int argc, char **argv) {\n    int NUMBER, i;\n    NUMBER = atoi(argv[1]);\n\n    char* array = malloc(NUMBER);\n    for (i = 0; i < NUMBER; ++i) {\n        array[i] = 5;\n    }\n\n    return 0;\n}\n",
+        "code": "#include <stdlib.h>\n#include <stdio.h>\n\n// Number to guess: How big of an array (in bytes)\n// can we allocate and fill in a second?\n\n// this is intentionally more complicated than it needs to be\n// so that it matches the out-of-order version :)\n\nint main(int argc, char **argv) {\n    int NUMBER, i;\n    NUMBER = atoi(argv[1]);\n\n    char* array = malloc(NUMBER);\n    int j = 1;\n    for (i = 0; i < NUMBER; ++i) {\n        j = j * 2;\n        if (j > NUMBER) {\n            j = j - NUMBER;\n        }\n        array[i] = j;\n    }\n\n    printf(\"%d\", array[NUMBER / 7]);\n    // so that -O2 doesn't optimize out the loop\n\n    return 0;\n}\n",
         "exact_iters": 375950985,
         "rounded_iters": 1000000000
     },
     "fill_array_out_of_order.c": {
-        "code": "#include <stdlib.h>\n#include <stdio.h>\n\n// Number to guess: How big of an array (in bytes)\n// can we allocate and fill with 5s in a second?\n// The catch: We do it out of order instead of in order.\nint main(int argc, char **argv) {\n    int NUMBER, i;\n    NUMBER = atoi(argv[1]);\n\n    char* array = malloc(NUMBER);\n    int j = 1;\n    for (i = 0; i < NUMBER; ++i) {\n        j = j * 2;\n        if (j > NUMBER) {\n            j = j - NUMBER;\n        }\n        array[j] = 5;\n    }\n\n    return 0;\n}\n",
-        "exact_iters": 50802467,
+        "code": "#include <stdlib.h>\n#include <stdio.h>\n\n// Number to guess: How big of an array (in bytes)\n// can we allocate and fill with 5s in a second?\n// The catch: We do it out of order instead of in order.\nint main(int argc, char **argv) {\n    int NUMBER, i;\n    NUMBER = atoi(argv[1]);\n\n    char* array = malloc(NUMBER);\n    int j = 1;\n    for (i = 0; i < NUMBER; ++i) {\n        j = j * 2;\n        if (j > NUMBER) {\n            j = j - NUMBER;\n        }\n        array[j] = j;\n    }\n\n    printf(\"%d\", array[NUMBER / 7]);\n    // so that -O2 doesn't optimize out the loop\n\n    return 0;\n}\n",
+        "exact_iters": 67618085,
         "rounded_iters": 100000000
     },
     "find-filenames.sh": {
@@ -55,8 +65,8 @@
         "rounded_iters": 1000000000
     },
     "json_parse.py": {
-        "code": "#!/usr/bin/env python\n\nimport json\n\n#j = json.dumps({'%d' % (i): i for i in xrange(10000)})\nj = json.dumps(range(10000))\n\ndef f(NUMBER):\n    for _ in xrange(NUMBER):\n        json.loads(j)\n\nimport sys\nf(int(sys.argv[1]))\n",
-        "exact_iters": 725,
+        "code": "#!/usr/bin/env python\n\n# Number to guess: How many times can we parse\n# 64K of JSON in a second?\n\nimport json\n\nwith open('./setup/protobuf/message.json') as f:\n    message = f.read()\n\ndef f(NUMBER):\n    for _ in xrange(NUMBER):\n        json.loads(message)\n\nimport sys\nf(int(sys.argv[1]))\n",
+        "exact_iters": 449,
         "rounded_iters": 1000
     },
     "loop.py": {
@@ -79,14 +89,39 @@
         "exact_iters": 11056092,
         "rounded_iters": 10000000
     },
+    "math_sin.c": {
+        "code": "#include <math.h>\n\n// Number to guess: how many times can we sum sin(x)?\n\nint main(int argc, char **argv) {\n    int NUMBER, i;\n    double s = 0;\n    NUMBER = atoi(argv[1]);\n\n    for (i = 0; i < NUMBER; ++i) {\n        s += sin(i);\n    }\n    printf(\"%d\", s);\n\n    return 0;\n}\n",
+        "exact_iters": 50802467,
+        "rounded_iters": 100000000
+    },
+    "math_sin.py": {
+        "code": "#!/usr/bin/env python\n\n# Number to guess: how many times can we sum sin(x)?\n\nimport math\n\ndef f(NUMBER):\n    s = 0\n    for x in xrange(NUMBER):\n        s += math.sin(x)\n\nimport sys\nf(int(sys.argv[1]))\n",
+        "exact_iters": 6864961,
+        "rounded_iters": 10000000
+    },
+    "msgpack_parse.py": {
+        "code": "#!/usr/bin/env python\n\n# Number to guess: How many times can we parse\n# 46K of msgpack data in a second?\n\nimport msgpack\n\nwith open('./setup/protobuf/message.msgpack') as f:\n    message = f.read()\n\ndef f(NUMBER):\n    for _ in xrange(NUMBER):\n        msgpack.unpackb(message)\n\nimport sys\nf(int(sys.argv[1]))\n",
+        "exact_iters": 3681,
+        "rounded_iters": 10000
+    },
+    "object_create.py": {
+        "code": "#!/usr/bin/env python\n\nimport json\n\n#j = json.dumps({'%d' % (i): i for i in xrange(10000)})\nj = json.dumps(range(10000))\n\nclass MyObject(object):\n    def __init__(self):\n        self.a  = 'a'\n        self.b  = 'b'\n        self.c  = 'a'\n        self.d  = 'b'\n        self.e  = 'a'\n        self.f  = 'b'\n        self.g  = 'a'\n        self.h  = 'b'\n        self.i  = 'a'\n        self.j  = 'b'\n        self.k  = 'a'\n        self.l  = 'b'\n        self.m  = 'a'\n        self.n  = 'b'\n        self.o  = 'a'\n        self.p  = 'b'\n        self.q  = 'a'\n        self.r  = 'b'\n        self.s  = 'a'\n        self.t  = 'b'\n        self.u  = 'a'\n        self.v  = 'b'\n        self.w  = 'b'\n        self.x  = 'b'\n        self.y  = 'b'\n        self.z  = 'b'\n\n\ndef f(NUMBER):\n    for _ in xrange(NUMBER):\n        MyObject()\n\nimport sys\nf(int(sys.argv[1]))\n",
+        "exact_iters": 523638,
+        "rounded_iters": 1000000
+    },
     "parse_http_request.py": {
         "code": "#!/usr/bin/env python\n\n# Number to guess: How many HTTP requests\n# can we parse in a second?\n\nfrom BaseHTTPServer import BaseHTTPRequestHandler\nfrom StringIO import StringIO\n\nclass HTTPRequest(BaseHTTPRequestHandler):\n    def __init__(self, request_text):\n        self.rfile = StringIO(request_text)\n        self.raw_requestline = self.rfile.readline()\n        self.error_code = self.error_message = None\n        self.parse_request()\n\n    def send_error(self, code, message):\n        self.error_code = code\n        self.error_message = message\n\nrequest_text = \"\"\"GET / HTTP/1.1\nHost: localhost:8001\nConnection: keep-alive\nAccept: text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8\nUpgrade-Insecure-Requests: 1\nUser-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_10_5) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/45.0.2454.85 Safari/537.36\nAccept-Encoding: gzip, deflate, sdch\nAccept-Language: en-GB,en-US;q=0.8,en;q=0.6\n\"\"\"\n\ndef f(NUMBER):\n    for _ in range(NUMBER):\n        HTTPRequest(request_text)\n\nimport sys\nf(int(sys.argv[1]))\n",
         "exact_iters": 24796,
         "rounded_iters": 10000
     },
+    "protobuf_parse.py": {
+        "code": "#!/usr/bin/env python\n\nimport sys\nsys.path.insert(0, './setup/protobuf')\nfrom test_pb2 import TestMessage\n\nwith open('./setup/protobuf/message.protobuf') as f:\n    message = f.read()\n\ndef f(NUMBER):\n    for _ in xrange(NUMBER):\n        m = TestMessage()\n        TestMessage.ParseFromString(m, message)\n\nimport sys\nf(int(sys.argv[1]))\n",
+        "exact_iters": 85,
+        "rounded_iters": 100
+    },
     "run_bin_true.sh": {
         "code": "#!/bin/bash\n\nNUMBER=$1\n\nfor i in $(seq $NUMBER); do\n    /usr/bin/env true;\ndone\n",
-        "exact_iters": 370,
+        "exact_iters": 449,
         "rounded_iters": 1000
     },
     "run_python.sh": {

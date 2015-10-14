@@ -1,0 +1,32 @@
+{
+  "name": "invariant",
+  "version": "2.1.1",
+  "description": "invariant",
+  "keywords": [
+    "test"
+  ],
+  "license": "BSD-4-Clause",
+  "author": "Andres Suarez <zertosh@gmail.com>",
+  "files": [
+    "invariant.js",
+    "browser.js"
+  ],
+  "repository": "zertosh/invariant",
+  "scripts": {
+    "test": "NODE_ENV=production tap test/*.js && NODE_ENV=development tap test/*.js"
+  },
+  "dependencies": {
+    "loose-envify": "^1.0.0"
+  },
+  "devDependencies": {
+    "browserify": "^11.0.1",
+    "tap": "^1.4.0"
+  },
+  "main": "invariant.js",
+  "browser": "browser.js",
+  "browserify": {
+    "transform": [
+      "loose-envify"
+    ]
+  }
+}

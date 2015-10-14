@@ -1,0 +1,1 @@
+module.exports = require("npm:public-encrypt@2.0.1/browser");

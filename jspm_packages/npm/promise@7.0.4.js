@@ -1,0 +1,1 @@
+module.exports = require("npm:promise@7.0.4/index");

@@ -1,0 +1,16 @@
+/*
+
+   FORMS
+
+*/
+
+.input-text {
+  outline: 0;
+  border: 1px solid var(--silver);
+}
+
+.input-invisible {
+  outline: 0;
+  border: 0;
+}
+

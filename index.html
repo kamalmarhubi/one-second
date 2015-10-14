@@ -1,35 +1,53 @@
 <html>
 <head>
     <title> One second code: Do YOU know how much your computer can do in a second? </title>
-    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" rel="stylesheet" integrity="sha256-MfvZlkHCEqatNoGiOXveE8FIwMzZg4W85qfrfIFBfYc= sha512-dTfge/zgoMYpP7QbHy4gWMEGsbsdZeCXz7irItjcC3sPUFtf0kuFbDz/ixG7ArTxmDjLXDmezHubeNikyKGVyQ==" crossorigin="anonymous"></head>
-<body>
-    <div class="container col-md-offset-2 col-md-6" style="margin-top: 40px">
-        <div class="page-header">
-            <h1>Do YOU know how much your computer can do in a second?</small></h1>
-          </div>
-        <p>
-        Let's find out how well you know computers! All of these programs have a variable NUMBER in them. Your mission: guess how big NUMBER needs to get before the program takes 1 second to run.
-        </p>
-        <p>
-            You don't need to guess exactly: they're all between 1 and a billion. Just try to guess the right order of magnitude! A few notes:
+    <link rel="stylesheet" href="jspm_packages/npm/tachyons@3.0.1/css/tachyons.min.css">
+</head>
+<body class="wi-100">
+    <div class="dt pvxl mw7 center tl pam-ns pas">
+        <header class="dtc f4 f3-l">
+            <h1 class="caps mvxl f2 mw-75 lh-title">
+                Do <span class="heavy i underline">you</span> know how much
+                your computer can do in a
+                second?
+            </h1>
+            <p class="lh-copy measure">
+                Let's find out how well you know computers! All of these programs
+                have a variable NUMBER in them. Your mission: guess how big NUMBER
+                needs to get before the program takes 1 second to run.
+            </p>
+            <p class="lh-copy measure">
+                You don't need to guess exactly: they're all between 1 and a
+                billion. Just try to guess the right order of magnitude! A few
+                notes:
+            </p>
+                <ul class="lh-copy measure prxxxl-l">
+                    <li class="mbs"> If the answer is 38,000, both 10,000 and 100,000 are
+                        considered correct answers. The goal is to not be wrong by
+                        <i>more</i> than 10x :) </li>
+                    <li class="mbs"> We know computers have different disk & network & CPU
+                        speeds! We're trying to get you to tell the difference
+                        between code that can run 10 times/s and 100000 times/s. A
+                        newer computer won't make your code run 1000x faster :)
+                    </li>
+                    <li class="mbs"> That said, all this was run on a new laptop with a fast
+                        SSD and a sketchy network connection. </li>
+                </ul>
 
-            <ul>
-              <li> If the answer is 38,000, both 10,000 and 100,000 are considered correct answers. The goal is to not be wrong by <i>more</i> than 10x :) </li>
-              <li> We know computers have different disk & network & CPU speeds! We're trying to get you to tell the difference between code that can run 10 times/s and 100000 times/s. A newer computer won't make your code run 1000x faster :) </li>
-              <li> That said, all this was run on a new laptop with a fast SSD and a sketchy network connection. </li>
-            </ul>
-
-            Good luck! We were surprised by a lot of these. We'll be
-            anonymously collecting your answers, so expect some graphs in the
-            future! =D
-        </p> 
+            <p class="lh-copy measure">
+                Good luck! We were surprised by a lot of these. We'll be
+                anonymously collecting your answers, so expect some graphs in the
+                future! =D
+            </p> 
+        </header>
     </div>
-    <div class="container col-md-offset-1" id="quiz"></div>
-    <div class="container col-md-offset-1" id="code"></div>
+
+    <div class="mw8 center" id="quiz"></div>
+
     <script src="jspm_packages/system.js"></script>
     <script src="config.js"></script>
     <script>
-      System.import('./main');
+        System.import('./main');
     </script>
 </body>
 </html>

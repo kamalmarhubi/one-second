@@ -1,0 +1,1 @@
+module.exports = require("npm:loose-envify@1.0.0/index");

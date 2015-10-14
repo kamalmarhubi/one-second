@@ -1,0 +1,1 @@
+module.exports = require("github:firebase/firebase-bower@2.3.1/firebase");

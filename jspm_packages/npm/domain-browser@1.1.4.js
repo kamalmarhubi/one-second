@@ -1,0 +1,1 @@
+module.exports = require("npm:domain-browser@1.1.4/index");
