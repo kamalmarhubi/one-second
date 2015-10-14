@@ -21,9 +21,6 @@ let userRef = new Firebase(
 
 let attemptRef = userRef.child(`attempts/${attemptId}`);
 
-// Record time the attempt was started
-attemptRef.set({started: Firebase.ServerValue.TIMESTAMP});
-
 // This will be used in a store subscriber below
 let answersRef = attemptRef.child("answers");
 
@@ -265,8 +262,15 @@ var english = function(iters) {
 
 let store = createStore(questions);
 
+let started = false;
 let currentValue;
 store.subscribe(() => {
+    if (!started) {
+        started = true;
+        // Record time the attempt was started
+        attemptRef.set({started: Firebase.ServerValue.TIMESTAMP});
+    }
+
     let previousValue = currentValue;
     currentValue = store.getState();
 
