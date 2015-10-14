@@ -18,6 +18,7 @@ System.config({
     "babel-runtime": "npm:babel-runtime@5.8.25",
     "core-js": "npm:core-js@1.2.1",
     "fetch": "github:github/fetch@0.10.0",
+    "firebase": "github:firebase/firebase-bower@2.3.1",
     "react": "npm:react@0.14.0",
     "react-redux": "npm:react-redux@3.1.0",
     "redux": "npm:redux@3.0.2",
