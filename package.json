@@ -8,8 +8,8 @@
       "baseURL": "site"
     },
     "dependencies": {
-      "fetch": "github:github/fetch@^0.10.0",
       "firebase": "github:firebase/firebase-bower@^2.3.1",
+      "json": "github:systemjs/plugin-json@^0.1.0",
       "react": "npm:react@^0.14.0",
       "react-redux": "npm:react-redux@^3.1.0",
       "redux": "npm:redux@^3.0.2",

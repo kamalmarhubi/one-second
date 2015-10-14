@@ -1,10 +1,10 @@
-import 'fetch'
 import curriculum from 'curriculum'
 import React from 'react'
 import { createStore } from 'redux'
 import { connect, Provider } from 'react-redux'
 import Firebase from 'firebase'
 import uuid from 'uuid'
+import benchmarks from './benchmarks.json!'
 
 // Persist a user ID for users making multiple attempts
 let userId = localStorage.oneSecondUserId;
@@ -286,12 +286,6 @@ store.subscribe(() => {
     }
 });
 
-fetch("benchmarks.json")
-    .then(response => response.json())
-    .then(result => {
-        React.render(<Provider store={store}>
-                {() => <SmartQuiz curriculum={curriculum} benchmarks={result}/>}
-                </Provider>, document.getElementById('quiz'));
-        return response.json()
-    });
-
+React.render(<Provider store={store}>
+        {() => <SmartQuiz curriculum={curriculum} benchmarks={benchmarks}/>}
+        </Provider>, document.getElementById('quiz'));
