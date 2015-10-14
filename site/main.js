@@ -244,7 +244,6 @@ let store = createStore(questions);
 fetch("benchmarks.json")
     .then(response => response.json())
     .then(result => {
-        console.log(result);
         React.render(<Provider store={store}>
                 {() => <SmartQuiz curriculum={curriculum} benchmarks={result}/>}
                 </Provider>, document.getElementById('quiz'));
