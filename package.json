@@ -13,7 +13,8 @@
       "react": "npm:react@^0.14.0",
       "react-redux": "npm:react-redux@^3.1.0",
       "redux": "npm:redux@^3.0.2",
-      "tachyons": "npm:tachyons@^3.0.1"
+      "tachyons": "npm:tachyons@^3.0.1",
+      "uuid": "npm:uuid@^2.0.1"
     },
     "devDependencies": {
       "babel": "npm:babel-core@^5.8.22",
