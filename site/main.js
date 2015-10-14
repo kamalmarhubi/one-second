@@ -280,7 +280,6 @@ store.subscribe(() => {
                 ...([...store.getState()].map(([k,v]) => {
                     return {[k.replace(".", "_")]: v || null };  // Firebase doesn't allow undefined
                 })));
-        console.log(stateObj);
         answersRef.set(stateObj);
 
     }
