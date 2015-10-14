@@ -9,9 +9,9 @@
     },
     "dependencies": {
       "fetch": "github:github/fetch@^0.10.0",
-      "react": "npm:react@^0.13.3",
-      "react-redux": "npm:react-redux@^2.1.2",
-      "redux": "npm:redux@^3.0.0",
+      "react": "npm:react@^0.14.0",
+      "react-redux": "npm:react-redux@^3.1.0",
+      "redux": "npm:redux@^3.0.2",
       "tachyons": "npm:tachyons@^3.0.1"
     },
     "devDependencies": {
@@ -21,7 +21,7 @@
     }
   },
   "devDependencies": {
-    "jspm": "^0.16.2",
+    "jspm": "^0.16.12",
     "jspm-server": "^0.1.8"
   }
 }
