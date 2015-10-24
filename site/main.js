@@ -57,7 +57,7 @@ class ScoreCard extends React.Component {
                 numRemaining += 1
             }
         })
-        return <span className="pos-abs bottom-0 left-0 teal bg-white w-100 pvs tc" style={{position: "fixed"}}> 
+        return <span className="pos-abs bottom-0 left-0 teal bg-white w-100 pvs tc" style={{position: "fixed", zIndex: 999}}> 
         <b>Score:</b> <span className="v-sup">{numCorrect}</span> / <span className="v-sub">{numAnswered}</span>
         <span className="w1" style={{display: "inline-block"}}></span>
         <span> <b>Remaining:</b> {numRemaining} </span> </span>;
