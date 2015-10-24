@@ -195,7 +195,7 @@ class Section extends React.Component {
 
 function getInitialState(curriculum) {
     let initialState = new Map()
-    allPrograms = [].concat.apply([],curriculum.map(({text, programs}, index) => programs))
+    let allPrograms = [].concat.apply([],curriculum.map(({text, programs}, index) => programs))
     allPrograms.forEach(program => {
         initialState.set(program, undefined)
     })
@@ -280,20 +280,18 @@ store.subscribe(() => {
     if (!started) {
         started = true;
         // Record time the attempt was started
-        attemptRef.set({started: Firebase.ServerValue.TIMESTAMP});
+        attemptRef.child("started").set(Firebase.ServerValue.TIMESTAMP);
     }
 
     let previousValue = currentValue;
     currentValue = store.getState();
 
     if (previousValue !== currentValue) {
-        // lol really no way to go form string map to object easily?
-        let stateObj = Object.assign({},
-                ...([...store.getState()].map(([k,v]) => {
-                    return {[k.replace(".", "_")]: v || null };  // Firebase doesn't allow undefined
-                })));
-        answersRef.set(stateObj);
-
+        for (var [key, val] of currentValue) {
+            if (val !== undefined) {
+                answersRef.child(key.replace(".", "_")).set(val);
+            }
+        }
     }
 });
 
