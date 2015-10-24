@@ -15,4 +15,5 @@ rm -rf $PWD/*
 mv $TMPDIR/site/* .
 git add .
 git commit -a -m"Update site"
+git push deploy gh-pages:master
 
