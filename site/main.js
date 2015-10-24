@@ -47,7 +47,6 @@ class ScoreCard extends React.Component {
         var numAnswered = 0
         var numRemaining = 0
         selectedAnswers.forEach((value, prog) => {
-            console.log(value);
             if (is_close(value, benchmarks[prog]['exact_iters'])) {
                 numCorrect += 1
             }
