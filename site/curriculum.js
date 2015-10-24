@@ -95,7 +95,7 @@ const curriculum = [
             it can really hurt, especially if you end up serializing/deserializing
             the same data repeatedly.
             Here are a couple of benchmarks: of parsing 64K of JSON, and the
-            same data encoded in msgpack format.
+            same data encoded in <a href="http://msgpack.org/index.html">msgpack</a> format.
             </p>
         `,
         'programs': ["json_parse.py", "msgpack_parse.py"],

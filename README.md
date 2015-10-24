@@ -1,6 +1,6 @@
 # One second code: How fast is your computer?
 
-Hi! This is source for http://onesecondcode.com. It contains:
+Hi! This is source for http://computers-are-fast.github.io. It contains:
 
 * some frontend JS for the game
 * the benchmarks, and Python code to run them.
@@ -13,3 +13,7 @@ Hi! This is source for http://onesecondcode.com. It contains:
 
 Run `npm run serve` after installing, or start any HTTP server with root
 directory at `site/`.
+
+# Authors
+
+[Kamal Marhubi](http://kamalmarhubi.com), [Julia Evans](http://jvns.ca)
