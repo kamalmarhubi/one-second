@@ -44,7 +44,7 @@ const curriculum = [
             (network performance is SO INTERESTING). Friends who do high performance networking
             say it's possible to get network roundtrips of 250ns (!!!), 
             but that's with much closer computers, and fancier hardware.
-            For us and Google, it's a million times longer </3>.
+            For us and Google, it's a million times longer </3.
             Light can only travel a foot in a nanosecond, and Google is much more than 250 feet away.
         `
     },
