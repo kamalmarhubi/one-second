@@ -61,7 +61,7 @@ class ScoreCard extends React.Component {
             <b>Score:</b> <span className="v-sup">{numCorrect}</span> / <span className="v-sub">{numAnswered}</span>
             <span className="w1" style={{display: "inline-block"}}></span>
             <span> <b>Remaining:</b> {numRemaining} </span> 
-            <span> <b><a className="pos-abs right-2 teal" href="/about.html">About this game</a></b></span>
+            <span> <b><a className="pos-abs-l mll mln-l right-2 teal" href="/about.html">About this game</a></b></span>
         </span>;
     }
 }
