@@ -32,7 +32,6 @@ class Header extends React.Component {
         let { selectedAnswers, benchmarks } = this.props;
         return (
             <div>
-                <a href="/">★ One second code ★</a>
                 <ScoreCard selectedAnswers={selectedAnswers} benchmarks={benchmarks}/> 
             </div>
         );
@@ -45,13 +44,23 @@ class ScoreCard extends React.Component {
     render() {
         let { selectedAnswers, benchmarks } = this.props;
         var numCorrect = 0
-        var total = selectedAnswers.size
+        var numAnswered = 0
+        var numRemaining = 0
         selectedAnswers.forEach((value, prog) => {
+            console.log(value);
             if (is_close(value, benchmarks[prog]['exact_iters'])) {
                 numCorrect += 1
             }
+            if (value) {
+                numAnswered += 1
+            } else {
+                numRemaining += 1
+            }
         })
-        return <span className="tracked-tight"> <b>Score:</b> <span className="v-sup">{numCorrect}</span> / <span className="v-sub">{total}</span> </span>;
+        return <span className="pos-abs bottom-0 left-0 teal bg-white w-100 pvs tc" style={{position: "fixed"}}> 
+        <b>Score:</b> <span className="v-sup">{numCorrect}</span> / <span className="v-sub">{numAnswered}</span>
+        <span className="w1" style={{display: "inline-block"}}></span>
+        <span> <b>Remaining:</b> {numRemaining} </span> </span>;
     }
 }
 
