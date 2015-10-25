@@ -216,7 +216,6 @@ class Quiz extends React.Component {
                 var finished = true
                 var programStates = []
                 for (var progName in programs) {
-                    console.log(progName)
                     if (selectedAnswers.get(progName) === undefined) {
                         finished = false
                     }
