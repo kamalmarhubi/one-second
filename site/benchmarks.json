@@ -140,7 +140,7 @@
         "rounded_iters": 10000000
     },
     "write_to_disk.py": {
-        "code": "#!/usr/bin/env python\n\n# Number to guess: How many bytes can we write\n# to an output file in a second?\n# Note: we make sure everything is sync'd to disk\n# before exiting :)\nimport tempfile\nimport os\n\nCHUNK_SIZE = 1000000\ns = \"a\" * CHUNK_SIZE\n\ndef cleanup(f, name):\n    f.flush()\n    os.fsync(f.fileno())\n    f.close()\n    try:\n        os.remove(name)\n    except:\n        pass\n\ndef f(NUMBER):\n    name = './out'\n    f = open(name, 'w')\n    bytes_written = 0\n    while bytes_written < NUMBER:\n        f.write(s)\n        bytes_written += CHUNK_SIZE\n    cleanup(f, name)\n\nimport sys\nf(int(sys.argv[1]))\n",
+        "code": "#!/usr/bin/env python\n\n# Number to guess: How many bytes can we write\n# to an output file in a second?\n# Note: we make sure everything is sync'd to disk\n# before exiting :)\nimport os\n\nCHUNK_SIZE = 1000000\ns = \"a\" * CHUNK_SIZE\n\ndef cleanup(f, name):\n    f.flush()\n    os.fsync(f.fileno())\n    f.close()\n    try:\n        os.remove(name)\n    except:\n        pass\n\ndef f(NUMBER):\n    name = './out'\n    f = open(name, 'w')\n    bytes_written = 0\n    while bytes_written < NUMBER:\n        f.write(s)\n        bytes_written += CHUNK_SIZE\n    cleanup(f, name)\n\nimport sys\nf(int(sys.argv[1]))\n",
         "exact_iters": 341773622,
         "rounded_iters": 1000000000
     },
