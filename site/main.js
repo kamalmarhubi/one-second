@@ -193,11 +193,13 @@ class Section extends React.Component {
 }
 
 function getInitialState(curriculum) {
-    let initialState = new Map()
-    let allPrograms = [].concat.apply([],curriculum.map(({text, programs}, index) => programs))
-    allPrograms.forEach(program => {
-        initialState.set(program, undefined)
-    })
+    var initialState = new Map();
+    var allPrograms = {}
+    curriculum.map(({text, programs}, index) => Object.assign(allPrograms, programs)) 
+    console.log(allPrograms)
+    for (var key in allPrograms) {
+      initialState.set(key, undefined);
+    }
     return initialState
 }
 

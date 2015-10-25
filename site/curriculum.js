@@ -3,7 +3,7 @@ const curriculum = [
         'text': `<p>Welcome to the first program! This one is just to get you on
          your feet: how many loops can you go through in a second? (it might
          be more than you think!)</p>`,
-        'programs': ["sum.c", "loop.py"],
+        'programs': {"sum.c": "iterations", "loop.py": "iterations"},
         'conclusion': `
             When I see code like this, I think about how much time a millisecond is 
             -- it's imperceptible to me, but apparently you can run 68,000
@@ -23,7 +23,7 @@ const curriculum = [
         </p>
          `,
 
-        'programs': ["dict.py", "parse_http_request.py"],
+        'programs': {"dict.py": "iterations", "parse_http_request.py": "HTTP requests parsed"},
         'conclusion': `
             We can parse 25,000 small HTTP requests per second! One thing I want to
             point out here is that the request parsing code is written in pure Python,
@@ -34,7 +34,7 @@ const curriculum = [
     {
         'text': `<p>Next up, we have downloading a webpage vs running a Python script! 
             Hint: these are both less than 100 million :)</p>`,
-        'programs': ["download_webpage.py", "run_python.sh"],
+        'programs': {"download_webpage.py": "HTTP requests completed", "run_python.sh": "iterations"},
         'conclusion': `
             Starting a program is actually already expensive by itself, not just starting Python.
             If we just run /bin/true, we can do 500 of them in a second, so it looks like
@@ -57,7 +57,7 @@ const curriculum = [
             </p>
         `,
 
-        'programs': ["write_to_disk.py", "write_to_memory.py"],
+        'programs': {"write_to_disk.py": "bytes written", "write_to_memory.py": "bytes written"},
         'conclusion': `
             Disks are slower than memory, and this matters even if you're using a 'slow' language like Python,
             and if you have an extremely fast disk (my SSD has been known to write at > 500MB/s, which is *fast*).
@@ -86,7 +86,7 @@ const curriculum = [
             Great! Now we know that grep can search at 2GB/s, so at least in this case,
             we're limited more by the disk speed than grep's speed.`,
 
-        'programs': ["grep_bytes.sh", "find-filenames.sh"],
+        'programs': {"grep_bytes.sh": "bytes searched", "find-filenames.sh": "files listed"},
     },
     {
         'text': `
@@ -98,7 +98,7 @@ const curriculum = [
             same data encoded in <a href="http://msgpack.org/index.html">msgpack</a> format.
             </p>
         `,
-        'programs': ["json_parse.py", "msgpack_parse.py"],
+        'programs': {"json_parse.py": "iterations", "msgpack_parse.py": "iterations"},
         'conclusion': `
             Basically every single person we talked to about serialization mentioned that capnproto
             does instant serialization. We just want you to know that deserializing
@@ -113,7 +113,7 @@ const curriculum = [
             indexed and one unindexed.
             </p>
         `,
-        'programs': ["database_indexed.py", "database_unindexed.py"],
+        'programs': {"database_indexed.py": "queries", "database_unindexed.py": "queries"},
         'conclusion': `
             Not a big surprise: indexes are amazing. 20ish microseconds for an indexed query
             means that if this were over a network to a faraway database server,
@@ -128,7 +128,7 @@ const curriculum = [
             a bit of stuff in a second with MD5; not so with bcrypt.
             </p>
         `,
-        'programs': ["hash.py", "bcrypt_hash.py"]
+        'programs': {"hash.py": "bytes hashed", "bcrypt_hash.py": "# passwords hashed"}
     },
     {
         'text': `
@@ -144,7 +144,7 @@ const curriculum = [
             to guess at this one.
             </p>
         `,
-        'programs': ["fill_array.c", "fill_array_out_of_order.c"],
+        'programs': {"fill_array.c": "bytes written", "fill_array_out_of_order.c": "bytes written"},
         'conclusion': `
             We don't write a lot of C, so this doesn't affect us very often.
             But if you care about how many nanoseconds your operations take
