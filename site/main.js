@@ -193,10 +193,9 @@ class Section extends React.Component {
 }
 
 function getInitialState(curriculum) {
-    var initialState = new Map();
+    var initialState = new Map()
     var allPrograms = {}
     curriculum.map(({text, programs}, index) => Object.assign(allPrograms, programs)) 
-    console.log(allPrograms)
     for (var key in allPrograms) {
       initialState.set(key, undefined);
     }
@@ -214,20 +213,25 @@ class Quiz extends React.Component {
             { curriculum.map(({text, programs, conclusion}, index) => {
 
                 var finished = true
-                programs.forEach(program => {
-                    if (selectedAnswers.get(program) === undefined) {
+                var programStates = []
+                for (var progName in programs) {
+                    console.log(progName)
+                    if (selectedAnswers.get(progName) === undefined) {
                         finished = false
                     }
-                })
+                    programStates.push(Object.assign({
+                        name: progName,
+                        units: programs[progName],
+                        selectAnswer: selectedAnswers.get(progName),
+                    }, benchmarks[progName]))
+                }
                 return <Section
                     key={index}
                     onAnswerChange={(prog, answer) => dispatch(selectAnswer(prog, answer))}
                     text={text}
                     finished={finished}
                     conclusion={conclusion}
-                    programs={
-                        programs.map(prog => Object.assign({name: prog, selectedAnswer: selectedAnswers.get(prog)}, benchmarks[prog]))
-                    } />
+                    programs={programStates} />
                 })
             }
             <div className="h3"> </div>
