@@ -4,10 +4,11 @@
 // this loop can we go through in a second?
 
 int main(int argc, char **argv) {
-    int NUMBER, i, s;
-    NUMBER = atoi(argv[1]);
+    volatile int i = 0;
+    volatile int s = 0;
+    const unsigned int NUMBER = atoi(argv[1]);
 
-    for (s = i = 0; i < NUMBER; ++i) {
+    for (s = i; i < NUMBER; ++i) {
         s += 1;
     }
 
