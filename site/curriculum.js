@@ -6,7 +6,7 @@ const curriculum = [
         'programs': {"sum.c": "iterations", "loop.py": "iterations"},
         'conclusion': `
             When I see code like this, I think about how much time a millisecond is 
-            -- it's imperceptible to me, but apparently you can run 68,000
+            -- it's imperceptible to me, but apparently you can run 68,000,000
             iterations of an empty loop in a millisecond, even in Python!
         `
     },
