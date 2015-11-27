@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 
 # Number to guess: How many times can we parse
-# 46K of msgpack data in a second?
+# 64K of msgpack data in a second?
 
 import msgpack
 
