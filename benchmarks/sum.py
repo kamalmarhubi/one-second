@@ -1,9 +1,7 @@
 #!/usr/bin/env python
 
 def f(NUMBER):
-    s = 0
-    for i in xrange(NUMBER):
-        s += 1
+    sum(xrange(NUMBER))
 
 if __name__ == '__main__':
     import sys
