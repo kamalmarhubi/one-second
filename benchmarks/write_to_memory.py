@@ -14,6 +14,7 @@ def f(NUMBER):
     while bytes_written < NUMBER:
         output.write(s)
         bytes_written += CHUNK_SIZE
+    output.getvalue()  # Force StringIO to realize buffer.
 
 if __name__ == '__main__':
     import sys
